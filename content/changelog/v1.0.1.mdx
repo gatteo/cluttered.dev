@@ -1,0 +1,31 @@
+---
+version: "1.0.1"
+date: 2025-12-29
+title: "UI Polish & Analytics"
+---
+
+This release focuses on improving the user experience with refined UI components and better feedback mechanisms.
+
+## UI Improvements
+
+- **Redesigned Status Bar**: Moved to the top of the screen with centered status info and integrated Settings button
+- **Enhanced Action Bar**: "Clean All" is now the default action, with "Clean Selected" appearing when you manually select projects
+- **Consistent Button Styling**: All buttons now follow a unified design system with the new `btn-subtle` style
+- **Fixed Tooltip Colors**: Tooltips now properly use the design system colors
+
+## New Features
+
+- **Analytics Integration**: Optional usage analytics to help improve Cluttered (using PostHog)
+- **Database Reset**: New `pnpm reset-db` command for troubleshooting
+
+## Build & Distribution
+
+- **Mac App Store**: Added build scripts for MAS distribution
+- **DMG Installer**: Improved DMG packaging for direct downloads
+- **Migrated to pnpm**: Faster and more reliable dependency management
+
+## Bug Fixes
+
+- Fixed infinite render loop in EcosystemCard component
+- Fixed environment variable loading for analytics
+- Improved scan progress display during active scans

@@ -12,7 +12,7 @@ export default function PrivacyPage() {
       <Container className="max-w-3xl">
         <FadeIn>
           <h1 className="text-4xl font-bold text-text-primary mb-4">Privacy Policy</h1>
-          <p className="text-text-muted mb-8">Last updated: December 2024</p>
+          <p className="text-text-muted mb-8">Last updated: December 2025</p>
 
           <div className="prose prose-lg prose-invert max-w-none">
             <h2>Overview</h2>

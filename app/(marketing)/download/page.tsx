@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { Download, Apple, CheckCircle, Shield } from 'lucide-react'
 import { Section, Container, Card, Button, FadeIn, Badge } from '@/components/ui'
+import { siteConfig } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Download',
@@ -8,14 +10,6 @@ export const metadata: Metadata = {
 }
 
 const systemRequirements = ['macOS 12 (Monterey) or later', 'Apple Silicon or Intel processor', '50 MB disk space', 'No admin privileges required']
-
-const version = {
-  number: '1.0.0',
-  date: 'December 2024',
-  size: '45 MB',
-  dmgUrl: '/downloads/Cluttered-1.0.0.dmg',
-  zipUrl: '/downloads/Cluttered-1.0.0.zip',
-}
 
 export default function DownloadPage() {
   return (
@@ -25,7 +19,7 @@ export default function DownloadPage() {
           <div className="text-center mb-12">
             <FadeIn>
               <Badge variant="success" className="mb-4">
-                Latest: v{version.number}
+                Latest: v1.0.1
               </Badge>
               <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">Download Cluttered</h1>
               <p className="text-xl text-text-secondary">Reclaim your disk space in minutes. Free to download.</p>
@@ -41,23 +35,14 @@ export default function DownloadPage() {
                     <Apple className="w-6 h-6" />
                     <span className="text-lg font-semibold text-text-primary">macOS</span>
                   </div>
-                  <p className="text-text-secondary mb-4">
-                    Version {version.number} - {version.size} - {version.date}
-                  </p>
+                  <p className="text-text-secondary mb-4">Download the latest version for macOS</p>
 
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <a href={version.dmgUrl} download>
-                      <Button size="lg" className="w-full sm:w-auto">
-                        <Download className="w-5 h-5 mr-2" />
-                        Download DMG
-                      </Button>
-                    </a>
-                    <a href={version.zipUrl} download>
-                      <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                        Download ZIP
-                      </Button>
-                    </a>
-                  </div>
+                  <Link href={siteConfig.releases} target="_blank" rel="noopener noreferrer">
+                    <Button size="lg">
+                      <Download className="w-5 h-5 mr-2" />
+                      Download for Mac
+                    </Button>
+                  </Link>
                 </div>
 
                 <div className="w-px h-24 bg-white/10 hidden md:block" />
@@ -86,7 +71,7 @@ export default function DownloadPage() {
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent-purple/20 text-accent-purple text-sm flex items-center justify-center">
                     1
                   </span>
-                  <span>Download the DMG file above</span>
+                  <span>Download the DMG file</span>
                 </li>
                 <li className="flex gap-4">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent-purple/20 text-accent-purple text-sm flex items-center justify-center">

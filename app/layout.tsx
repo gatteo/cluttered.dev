@@ -99,8 +99,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans min-h-screen antialiased flex flex-col`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="min-h-screen antialiased flex flex-col">
         <GoogleAnalytics />
         <PostHogProvider>
           <Suspense fallback={null}>

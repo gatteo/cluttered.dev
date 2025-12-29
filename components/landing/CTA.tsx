@@ -12,7 +12,7 @@ export function CTA() {
 
       <Container className="relative text-center">
         <FadeIn>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-primary mb-6 tracking-tight">
             Ready to Reclaim Your Disk Space?
           </h2>
 

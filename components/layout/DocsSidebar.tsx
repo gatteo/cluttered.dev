@@ -24,9 +24,7 @@ export function DocsSidebar({ sections }: DocsSidebarProps) {
       <nav className="sticky top-24 space-y-8">
         {sections.map((section) => (
           <div key={section.title}>
-            <h4 className="text-sm font-semibold text-text-primary mb-3">
-              {section.title}
-            </h4>
+            <h4 className="text-sm font-semibold text-text-primary mb-3">{section.title}</h4>
             <ul className="space-y-2">
               {section.items.map((item) => (
                 <li key={item.href}>
@@ -34,9 +32,7 @@ export function DocsSidebar({ sections }: DocsSidebarProps) {
                     href={item.href}
                     className={cn(
                       'block text-sm py-1 transition-colors',
-                      pathname === item.href
-                        ? 'text-accent-purple font-medium'
-                        : 'text-text-secondary hover:text-text-primary'
+                      pathname === item.href ? 'text-accent-purple font-medium' : 'text-text-secondary hover:text-text-primary'
                     )}
                   >
                     {item.title}

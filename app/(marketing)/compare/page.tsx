@@ -22,9 +22,7 @@ export default function ComparisonsPage() {
             <Badge variant="secondary" className="mb-4">
               Comparisons
             </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
-              Cluttered vs. The Competition
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">Cluttered vs. The Competition</h1>
             <p className="text-xl text-text-secondary max-w-2xl mx-auto">
               Generic disk cleaners don&apos;t understand developer workflows. See why Cluttered is built different.
             </p>
@@ -34,9 +32,7 @@ export default function ComparisonsPage() {
         {comparisons.length === 0 ? (
           <FadeIn>
             <Card className="text-center py-12">
-              <p className="text-text-secondary">
-                Comparisons coming soon!
-              </p>
+              <p className="text-text-secondary">Comparisons coming soon!</p>
             </Card>
           </FadeIn>
         ) : (
@@ -54,9 +50,7 @@ export default function ComparisonsPage() {
                         <h2 className="text-xl font-semibold text-text-primary mb-2 group-hover:text-accent-purple transition-colors">
                           {comparison.title}
                         </h2>
-                        <p className="text-text-secondary text-sm mb-4 flex-1">
-                          {comparison.description}
-                        </p>
+                        <p className="text-text-secondary text-sm mb-4 flex-1">{comparison.description}</p>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2 text-sm text-accent-green">
                             <CheckCircle className="w-4 h-4" />
@@ -81,9 +75,7 @@ export default function ComparisonsPage() {
                         <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-accent-purple transition-colors">
                           {comparison.title}
                         </h3>
-                        <p className="text-text-secondary text-sm mb-4 flex-1">
-                          {comparison.description}
-                        </p>
+                        <p className="text-text-secondary text-sm mb-4 flex-1">{comparison.description}</p>
                         <div className="flex items-center gap-1 text-accent-purple text-sm font-medium group-hover:gap-2 transition-all">
                           Compare
                           <ArrowRight className="w-4 h-4" />
@@ -100,36 +92,28 @@ export default function ComparisonsPage() {
         {/* Why Cluttered is Different */}
         <FadeIn delay={0.3}>
           <Card className="mt-12 p-8">
-            <h2 className="text-2xl font-semibold text-text-primary mb-6 text-center">
-              Why Developers Choose Cluttered
-            </h2>
+            <h2 className="text-2xl font-semibold text-text-primary mb-6 text-center">Why Developers Choose Cluttered</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="w-12 h-12 rounded-full bg-accent-purple/20 flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">🎯</span>
                 </div>
                 <h3 className="font-semibold text-text-primary mb-2">Developer-Focused</h3>
-                <p className="text-sm text-text-secondary">
-                  Built specifically for development artifacts. Knows node_modules from normal folders.
-                </p>
+                <p className="text-sm text-text-secondary">Built specifically for development artifacts. Knows node_modules from normal folders.</p>
               </div>
               <div className="text-center">
                 <div className="w-12 h-12 rounded-full bg-accent-green/20 flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">🔒</span>
                 </div>
                 <h3 className="font-semibold text-text-primary mb-2">Git-Aware</h3>
-                <p className="text-sm text-text-secondary">
-                  Never suggests cleaning projects with uncommitted changes. Your work is protected.
-                </p>
+                <p className="text-sm text-text-secondary">Never suggests cleaning projects with uncommitted changes. Your work is protected.</p>
               </div>
               <div className="text-center">
                 <div className="w-12 h-12 rounded-full bg-accent-pink/20 flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">✨</span>
                 </div>
                 <h3 className="font-semibold text-text-primary mb-2">Satisfying UX</h3>
-                <p className="text-sm text-text-secondary">
-                  Cleaning disk space should feel good. Our UI makes it enjoyable, not scary.
-                </p>
+                <p className="text-sm text-text-secondary">Cleaning disk space should feel good. Our UI makes it enjoyable, not scary.</p>
               </div>
             </div>
           </Card>

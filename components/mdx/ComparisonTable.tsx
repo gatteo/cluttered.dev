@@ -14,11 +14,7 @@ interface ComparisonTableProps {
 export function ComparisonTable({ features, competitorName = 'Competitor' }: ComparisonTableProps) {
   const renderValue = (value: boolean | string) => {
     if (typeof value === 'boolean') {
-      return value ? (
-        <Check className="h-5 w-5 text-accent-green mx-auto" />
-      ) : (
-        <X className="h-5 w-5 text-accent-red mx-auto" />
-      )
+      return value ? <Check className="h-5 w-5 text-accent-green mx-auto" /> : <X className="h-5 w-5 text-accent-red mx-auto" />
     }
     return <span className="text-text-secondary">{value}</span>
   }

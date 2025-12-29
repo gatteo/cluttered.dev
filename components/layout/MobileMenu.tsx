@@ -45,9 +45,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   onClick={onClose}
                   className={cn(
                     'block py-2 text-lg font-medium transition-colors',
-                    pathname === item.href || pathname.startsWith(item.href + '/')
-                      ? 'text-text-primary'
-                      : 'text-text-secondary'
+                    pathname === item.href || pathname.startsWith(item.href + '/') ? 'text-text-primary' : 'text-text-secondary'
                   )}
                 >
                   {item.name}

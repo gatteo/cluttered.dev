@@ -13,20 +13,10 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <Image
-                src="/icons/logo.png"
-                alt="Cluttered"
-                width={28}
-                height={28}
-                className="w-7 h-7"
-              />
-              <span className="text-xl font-bold text-text-primary">
-                {siteConfig.name}
-              </span>
+              <Image src="/icons/logo.png" alt="Cluttered" width={28} height={28} className="w-7 h-7" />
+              <span className="text-xl font-bold text-text-primary">{siteConfig.name}</span>
             </Link>
-            <p className="text-sm text-text-secondary mb-4">
-              The satisfying disk cleaner for developers. Reclaim gigabytes of wasted space.
-            </p>
+            <p className="text-sm text-text-secondary mb-4">The satisfying disk cleaner for developers. Reclaim gigabytes of wasted space.</p>
             <div className="flex gap-4">
               <a
                 href={siteConfig.github}
@@ -55,10 +45,7 @@ export function Footer() {
             <ul className="space-y-3">
               {navigation.footer.product.map((item) => (
                 <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-text-secondary hover:text-text-primary transition-colors"
-                  >
+                  <Link href={item.href} className="text-sm text-text-secondary hover:text-text-primary transition-colors">
                     {item.name}
                   </Link>
                 </li>
@@ -72,10 +59,7 @@ export function Footer() {
             <ul className="space-y-3">
               {navigation.footer.resources.map((item) => (
                 <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-text-secondary hover:text-text-primary transition-colors"
-                  >
+                  <Link href={item.href} className="text-sm text-text-secondary hover:text-text-primary transition-colors">
                     {item.name}
                   </Link>
                 </li>
@@ -89,10 +73,7 @@ export function Footer() {
             <ul className="space-y-3">
               {navigation.footer.company.map((item) => (
                 <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-text-secondary hover:text-text-primary transition-colors"
-                  >
+                  <Link href={item.href} className="text-sm text-text-secondary hover:text-text-primary transition-colors">
                     {item.name}
                   </Link>
                 </li>
@@ -106,9 +87,7 @@ export function Footer() {
           <p className="text-sm text-text-muted">
             &copy; {currentYear} {siteConfig.creator}. All rights reserved.
           </p>
-          <p className="text-sm text-text-muted">
-            Made with love for developers
-          </p>
+          <p className="text-sm text-text-muted">Made with love for developers</p>
         </div>
       </div>
     </footer>

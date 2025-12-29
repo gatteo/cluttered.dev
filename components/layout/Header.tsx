@@ -35,25 +35,15 @@ export function Header() {
       <header
         className={cn(
           'fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-200',
-          isScrolled
-            ? 'bg-void/80 backdrop-blur-xl border-white/5'
-            : 'bg-transparent border-transparent'
+          isScrolled ? 'bg-void/80 backdrop-blur-xl border-white/5' : 'bg-transparent border-transparent'
         )}
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5">
-              <Image
-                src="/icons/logo.png"
-                alt="Cluttered"
-                width={32}
-                height={32}
-                className="w-8 h-8"
-              />
-              <span className="text-xl font-bold text-text-primary">
-                {siteConfig.name}
-              </span>
+              <Image src="/icons/logo.png" alt="Cluttered" width={32} height={32} className="w-8 h-8" />
+              <span className="text-xl font-bold text-text-primary">{siteConfig.name}</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -89,11 +79,7 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Toggle menu"
               >
-                {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>

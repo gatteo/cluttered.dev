@@ -1,15 +1,5 @@
 import { Metadata } from 'next'
-import {
-  Scan,
-  Trash2,
-  Eye,
-  Bell,
-  BarChart3,
-  GitBranch,
-  HardDrive,
-  Timer,
-  Lock,
-} from 'lucide-react'
+import { Scan, Trash2, Eye, Bell, BarChart3, GitBranch, HardDrive, Timer, Lock } from 'lucide-react'
 import { Section, Container, SectionHeader, FadeIn, Button } from '@/components/ui'
 import Link from 'next/link'
 
@@ -88,12 +78,9 @@ export default function FeaturesPage() {
       <Section size="lg" first>
         <Container className="text-center">
           <FadeIn>
-            <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">
-              Built for Developer Workflows
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">Built for Developer Workflows</h1>
             <p className="text-xl text-text-secondary max-w-2xl mx-auto">
-              Every feature designed with your development needs in mind.
-              Safe, fast, and satisfying.
+              Every feature designed with your development needs in mind. Safe, fast, and satisfying.
             </p>
           </FadeIn>
         </Container>
@@ -101,10 +88,7 @@ export default function FeaturesPage() {
 
       {/* Feature Categories */}
       {features.map((category, categoryIndex) => (
-        <Section
-          key={category.category}
-          className={categoryIndex % 2 === 1 ? 'bg-surface-primary' : ''}
-        >
+        <Section key={category.category} className={categoryIndex % 2 === 1 ? 'bg-surface-primary' : ''}>
           <Container>
             <SectionHeader title={category.category} />
 
@@ -115,12 +99,8 @@ export default function FeaturesPage() {
                     <div className="inline-flex p-3 rounded-xl bg-accent-purple/10">
                       <feature.icon className="w-6 h-6 text-accent-purple" />
                     </div>
-                    <h3 className="text-xl font-semibold text-text-primary">
-                      {feature.title}
-                    </h3>
-                    <p className="text-text-secondary">
-                      {feature.description}
-                    </p>
+                    <h3 className="text-xl font-semibold text-text-primary">{feature.title}</h3>
+                    <p className="text-text-secondary">{feature.description}</p>
                   </div>
                 </FadeIn>
               ))}
@@ -133,9 +113,7 @@ export default function FeaturesPage() {
       <Section>
         <Container className="text-center">
           <FadeIn>
-            <h2 className="text-3xl font-bold text-text-primary mb-6">
-              Ready to try it?
-            </h2>
+            <h2 className="text-3xl font-bold text-text-primary mb-6">Ready to try it?</h2>
             <Link href="/download">
               <Button size="lg">Download Cluttered - It&apos;s Free</Button>
             </Link>

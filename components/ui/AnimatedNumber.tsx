@@ -11,25 +11,13 @@ interface AnimatedNumberProps {
   decimals?: number
 }
 
-export function AnimatedNumber({
-  value,
-  suffix = '',
-  prefix = '',
-  className,
-  decimals = 0,
-}: AnimatedNumberProps) {
+export function AnimatedNumber({ value, suffix = '', prefix = '', className, decimals = 0 }: AnimatedNumberProps) {
   const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 })
-  const display = useTransform(spring, (current) =>
-    `${prefix}${current.toFixed(decimals)}${suffix}`
-  )
+  const display = useTransform(spring, (current) => `${prefix}${current.toFixed(decimals)}${suffix}`)
 
   useEffect(() => {
     spring.set(value)
   }, [spring, value])
 
-  return (
-    <motion.span className={className}>
-      {display}
-    </motion.span>
-  )
+  return <motion.span className={className}>{display}</motion.span>
 }

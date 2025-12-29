@@ -93,12 +93,7 @@ export const pricingPlans = [
     price: '$49',
     period: 'once',
     description: 'Pay once, use forever',
-    features: [
-      'Everything in Pro',
-      'Lifetime updates',
-      'No recurring payments',
-      'Early access to new features',
-    ],
+    features: ['Everything in Pro', 'Lifetime updates', 'No recurring payments', 'Early access to new features'],
     cta: 'Get Lifetime',
     href: '/download?plan=lifetime',
     popular: false,

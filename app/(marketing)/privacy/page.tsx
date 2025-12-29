@@ -11,19 +11,14 @@ export default function PrivacyPage() {
     <Section size="lg" first>
       <Container className="max-w-3xl">
         <FadeIn>
-          <h1 className="text-4xl font-bold text-text-primary mb-4">
-            Privacy Policy
-          </h1>
-          <p className="text-text-muted mb-8">
-            Last updated: December 2024
-          </p>
+          <h1 className="text-4xl font-bold text-text-primary mb-4">Privacy Policy</h1>
+          <p className="text-text-muted mb-8">Last updated: December 2024</p>
 
           <div className="prose prose-lg prose-invert max-w-none">
             <h2>Overview</h2>
             <p>
-              Cluttered is designed with privacy as a core principle. We believe your
-              development environment is personal, and we&apos;ve built our app to respect
-              that.
+              Cluttered is designed with privacy as a core principle. We believe your development environment is personal, and we&apos;ve built our
+              app to respect that.
             </p>
 
             <h2>Data We Collect</h2>
@@ -38,18 +33,15 @@ export default function PrivacyPage() {
             <h3>What We May Collect (with permission)</h3>
             <ul>
               <li>
-                <strong>Anonymous usage analytics:</strong> Aggregate data like &quot;how
-                many times the scan button was clicked&quot; helps us improve the app.
-                This is opt-in and can be disabled.
+                <strong>Anonymous usage analytics:</strong> Aggregate data like &quot;how many times the scan button was clicked&quot; helps us
+                improve the app. This is opt-in and can be disabled.
               </li>
               <li>
-                <strong>Crash reports:</strong> When the app crashes, you may choose
-                to send a report. This contains technical information but no personal
-                data or file paths.
+                <strong>Crash reports:</strong> When the app crashes, you may choose to send a report. This contains technical information but no
+                personal data or file paths.
               </li>
               <li>
-                <strong>License validation:</strong> For Pro users, we verify your
-                license. This sends only your license key, not any file or project
+                <strong>License validation:</strong> For Pro users, we verify your license. This sends only your license key, not any file or project
                 information.
               </li>
             </ul>
@@ -67,12 +59,10 @@ export default function PrivacyPage() {
             <p>Cluttered may use the following services:</p>
             <ul>
               <li>
-                <strong>Analytics (optional):</strong> We use privacy-focused
-                analytics that don&apos;t track individual users.
+                <strong>Analytics (optional):</strong> We use privacy-focused analytics that don&apos;t track individual users.
               </li>
               <li>
-                <strong>Payment processing:</strong> For Pro purchases, we use Stripe
-                or Paddle. We never see or store your payment details.
+                <strong>Payment processing:</strong> For Pro purchases, we use Stripe or Paddle. We never see or store your payment details.
               </li>
             </ul>
 
@@ -87,8 +77,8 @@ export default function PrivacyPage() {
 
             <h2>Changes to This Policy</h2>
             <p>
-              We&apos;ll notify you of significant changes to this policy through the app
-              or our website. Continued use after changes constitutes acceptance.
+              We&apos;ll notify you of significant changes to this policy through the app or our website. Continued use after changes constitutes
+              acceptance.
             </p>
 
             <h2>Contact</h2>

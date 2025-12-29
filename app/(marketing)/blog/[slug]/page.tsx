@@ -65,10 +65,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <Container className="max-w-3xl">
         <FadeIn>
           {/* Back link */}
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors mb-8"
-          >
+          <Link href="/blog" className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors mb-8">
             <ArrowLeft className="w-4 h-4" />
             Back to Blog
           </Link>
@@ -84,13 +81,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               ))}
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-              {post.title}
-            </h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">{post.title}</h1>
 
-            <p className="text-xl text-text-secondary mb-6">
-              {post.description}
-            </p>
+            <p className="text-xl text-text-secondary mb-6">{post.description}</p>
 
             <div className="flex flex-wrap items-center gap-4 text-sm text-text-muted border-t border-white/10 pt-6">
               <div className="flex items-center gap-2">
@@ -110,18 +103,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Content */}
           <article>
-            <MDXContent
-              code={post.body.code}
-              className="prose prose-lg prose-invert max-w-none"
-            />
+            <MDXContent code={post.body.code} className="prose prose-lg prose-invert max-w-none" />
           </article>
 
           {/* Footer */}
           <footer className="mt-12 pt-8 border-t border-white/10">
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 text-accent-purple hover:text-accent-pink transition-colors"
-            >
+            <Link href="/blog" className="inline-flex items-center gap-2 text-accent-purple hover:text-accent-pink transition-colors">
               <ArrowLeft className="w-4 h-4" />
               More articles
             </Link>

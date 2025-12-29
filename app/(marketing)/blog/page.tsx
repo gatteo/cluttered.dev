@@ -10,9 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPage() {
-  const posts = allPosts
-    .filter((post) => !post.draft)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const posts = allPosts.filter((post) => !post.draft).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   const featuredPost = posts.find((post) => post.featured)
   const regularPosts = posts.filter((post) => !post.featured)
@@ -22,12 +20,8 @@ export default function BlogPage() {
     <Section size="lg" first>
       <Container>
         <FadeIn>
-          <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
-            Blog
-          </h1>
-          <p className="text-xl text-text-secondary mb-8">
-            Tips, tutorials, and insights for developers
-          </p>
+          <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">Blog</h1>
+          <p className="text-xl text-text-secondary mb-8">Tips, tutorials, and insights for developers</p>
 
           {/* Categories */}
           {categories.length > 0 && (
@@ -44,9 +38,7 @@ export default function BlogPage() {
         {posts.length === 0 ? (
           <FadeIn>
             <Card className="text-center py-12">
-              <p className="text-text-secondary">
-                No posts yet. Check back soon!
-              </p>
+              <p className="text-text-secondary">No posts yet. Check back soon!</p>
             </Card>
           </FadeIn>
         ) : (
@@ -59,16 +51,12 @@ export default function BlogPage() {
                     <div className="flex items-center gap-3 mb-4">
                       <Badge variant="success">Featured</Badge>
                       <Badge variant="secondary">{featuredPost.category}</Badge>
-                      <span className="text-sm text-text-muted">
-                        {format(new Date(featuredPost.date), 'MMMM d, yyyy')}
-                      </span>
+                      <span className="text-sm text-text-muted">{format(new Date(featuredPost.date), 'MMMM d, yyyy')}</span>
                     </div>
                     <h2 className="text-2xl font-bold text-text-primary mb-3 group-hover:text-accent-purple transition-colors">
                       {featuredPost.title}
                     </h2>
-                    <p className="text-text-secondary mb-4">
-                      {featuredPost.description}
-                    </p>
+                    <p className="text-text-secondary mb-4">{featuredPost.description}</p>
                     <div className="flex items-center gap-4 text-sm text-text-muted">
                       <span>{featuredPost.author}</span>
                       <span>·</span>
@@ -94,9 +82,7 @@ export default function BlogPage() {
                         <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-accent-purple transition-colors">
                           {post.title}
                         </h3>
-                        <p className="text-sm text-text-secondary mb-4 flex-1">
-                          {post.description}
-                        </p>
+                        <p className="text-sm text-text-secondary mb-4 flex-1">{post.description}</p>
                         <div className="flex items-center justify-between text-xs text-text-muted">
                           <span>{format(new Date(post.date), 'MMM d, yyyy')}</span>
                           <span>{post.readingTime.text}</span>

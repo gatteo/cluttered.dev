@@ -11,9 +11,7 @@ export function Card({ className, variant = 'default', ...props }: CardProps) {
     interactive: 'glass-card hover:bg-white/[0.05] hover:border-white/[0.12] cursor-pointer transition-all',
   }
 
-  return (
-    <div className={cn(variants[variant], 'p-6', className)} {...props} />
-  )
+  return <div className={cn(variants[variant], 'p-6', className)} {...props} />
 }
 
 export function CardHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {

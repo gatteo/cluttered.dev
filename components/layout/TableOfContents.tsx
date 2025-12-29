@@ -54,9 +54,7 @@ export function TableOfContents({ className }: TableOfContentsProps) {
           className={cn(
             'block text-sm py-1 transition-colors',
             heading.level === 3 && 'pl-4',
-            activeId === heading.id
-              ? 'text-accent-purple font-medium'
-              : 'text-text-secondary hover:text-text-primary'
+            activeId === heading.id ? 'text-accent-purple font-medium' : 'text-text-secondary hover:text-text-primary'
           )}
         >
           {heading.text}

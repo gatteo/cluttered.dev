@@ -56,10 +56,7 @@ export default async function EcosystemPage({ params }: EcosystemPageProps) {
       <Container className="max-w-4xl">
         <FadeIn>
           {/* Back link */}
-          <Link
-            href="/ecosystems"
-            className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors mb-8"
-          >
+          <Link href="/ecosystems" className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors mb-8">
             <ArrowLeft className="w-4 h-4" />
             All Ecosystems
           </Link>
@@ -67,19 +64,12 @@ export default async function EcosystemPage({ params }: EcosystemPageProps) {
           {/* Header */}
           <header className="mb-8">
             <div className="flex items-center gap-4 mb-4">
-              <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl"
-                style={{ backgroundColor: `${ecosystem.color}20` }}
-              >
+              <div className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl" style={{ backgroundColor: `${ecosystem.color}20` }}>
                 {ecosystem.icon}
               </div>
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold text-text-primary">
-                  {ecosystem.title}
-                </h1>
-                <p className="text-text-secondary">
-                  {ecosystem.description}
-                </p>
+                <h1 className="text-3xl md:text-4xl font-bold text-text-primary">{ecosystem.title}</h1>
+                <p className="text-text-secondary">{ecosystem.description}</p>
               </div>
             </div>
           </header>
@@ -91,9 +81,7 @@ export default async function EcosystemPage({ params }: EcosystemPageProps) {
                 <HardDrive className="w-5 h-5 text-accent-green" />
                 <div>
                   <p className="text-sm text-text-muted">Avg. Space Saved</p>
-                  <p className="text-lg font-semibold text-text-primary">
-                    {ecosystem.averageSize}
-                  </p>
+                  <p className="text-lg font-semibold text-text-primary">{ecosystem.averageSize}</p>
                 </div>
               </div>
             </Card>
@@ -103,9 +91,7 @@ export default async function EcosystemPage({ params }: EcosystemPageProps) {
                 <FileSearch className="w-5 h-5 text-accent-purple" />
                 <div>
                   <p className="text-sm text-text-muted">Detection Files</p>
-                  <p className="text-lg font-semibold text-text-primary">
-                    {ecosystem.detectionFiles.length} files
-                  </p>
+                  <p className="text-lg font-semibold text-text-primary">{ecosystem.detectionFiles.length} files</p>
                 </div>
               </div>
             </Card>
@@ -115,9 +101,7 @@ export default async function EcosystemPage({ params }: EcosystemPageProps) {
                 <Download className="w-5 h-5 text-accent-blue" />
                 <div>
                   <p className="text-sm text-text-muted">Artifact Types</p>
-                  <p className="text-lg font-semibold text-text-primary">
-                    {ecosystem.artifacts.length} types
-                  </p>
+                  <p className="text-lg font-semibold text-text-primary">{ecosystem.artifacts.length} types</p>
                 </div>
               </div>
             </Card>
@@ -125,12 +109,8 @@ export default async function EcosystemPage({ params }: EcosystemPageProps) {
 
           {/* Artifacts */}
           <Card className="p-6 mb-8">
-            <h2 className="text-xl font-semibold text-text-primary mb-4">
-              Cleanable Artifacts
-            </h2>
-            <p className="text-text-secondary mb-4">
-              Cluttered can safely clean these {ecosystem.title} build artifacts:
-            </p>
+            <h2 className="text-xl font-semibold text-text-primary mb-4">Cleanable Artifacts</h2>
+            <p className="text-text-secondary mb-4">Cluttered can safely clean these {ecosystem.title} build artifacts:</p>
             <div className="flex flex-wrap gap-2">
               {ecosystem.artifacts.map((artifact) => (
                 <Badge key={artifact} variant="secondary">
@@ -142,18 +122,11 @@ export default async function EcosystemPage({ params }: EcosystemPageProps) {
 
           {/* Detection */}
           <Card className="p-6 mb-8">
-            <h2 className="text-xl font-semibold text-text-primary mb-4">
-              Project Detection
-            </h2>
-            <p className="text-text-secondary mb-4">
-              Cluttered identifies {ecosystem.title} projects by looking for these files:
-            </p>
+            <h2 className="text-xl font-semibold text-text-primary mb-4">Project Detection</h2>
+            <p className="text-text-secondary mb-4">Cluttered identifies {ecosystem.title} projects by looking for these files:</p>
             <div className="flex flex-wrap gap-2">
               {ecosystem.detectionFiles.map((file) => (
-                <code
-                  key={file}
-                  className="px-2 py-1 rounded bg-white/10 text-accent-pink text-sm font-mono"
-                >
+                <code key={file} className="px-2 py-1 rounded bg-white/10 text-accent-pink text-sm font-mono">
                   {file}
                 </code>
               ))}
@@ -162,24 +135,15 @@ export default async function EcosystemPage({ params }: EcosystemPageProps) {
 
           {/* Content */}
           <article className="mb-12">
-            <MDXContent
-              code={ecosystem.body.code}
-              className="prose prose-lg prose-invert max-w-none"
-            />
+            <MDXContent code={ecosystem.body.code} className="prose prose-lg prose-invert max-w-none" />
           </article>
 
           {/* CTA */}
           <Card className="p-8 text-center bg-gradient-to-r from-accent-purple/10 to-accent-pink/10 border-accent-purple/20">
-            <h2 className="text-2xl font-bold text-text-primary mb-3">
-              Ready to clean your {ecosystem.title} projects?
-            </h2>
-            <p className="text-text-secondary mb-6">
-              Download Cluttered and reclaim your disk space in minutes.
-            </p>
+            <h2 className="text-2xl font-bold text-text-primary mb-3">Ready to clean your {ecosystem.title} projects?</h2>
+            <p className="text-text-secondary mb-6">Download Cluttered and reclaim your disk space in minutes.</p>
             <Link href="/download">
-              <Button size="lg">
-                Download Free
-              </Button>
+              <Button size="lg">Download Free</Button>
             </Link>
           </Card>
         </FadeIn>

@@ -3,9 +3,7 @@ import { allPosts, allEcosystems, allDocs } from 'contentlayer/generated'
 import { siteConfig } from '@/lib/constants'
 
 export const GET = async () => {
-  const ecosystems = allEcosystems
-    .map((e) => `- [${e.title}](${siteConfig.url}${e.url}): ${e.description}`)
-    .join('\n')
+  const ecosystems = allEcosystems.map((e) => `- [${e.title}](${siteConfig.url}${e.url}): ${e.description}`).join('\n')
 
   const recentPosts = allPosts
     .filter((p) => !p.draft)

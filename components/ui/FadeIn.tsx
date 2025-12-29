@@ -10,12 +10,7 @@ interface FadeInProps {
   direction?: 'up' | 'down' | 'left' | 'right' | 'none'
 }
 
-export function FadeIn({
-  children,
-  className,
-  delay = 0,
-  direction = 'up',
-}: FadeInProps) {
+export function FadeIn({ children, className, delay = 0, direction = 'up' }: FadeInProps) {
   const directions = {
     up: { y: 20 },
     down: { y: -20 },

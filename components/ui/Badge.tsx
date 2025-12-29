@@ -14,14 +14,5 @@ export function Badge({ className, variant = 'default', ...props }: BadgeProps) 
     info: 'bg-accent-blue/20 text-accent-blue',
   }
 
-  return (
-    <span
-      className={cn(
-        'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
-        variants[variant],
-        className
-      )}
-      {...props}
-    />
-  )
+  return <span className={cn('inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium', variants[variant], className)} {...props} />
 }

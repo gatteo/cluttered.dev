@@ -12,20 +12,12 @@ export function EcosystemShowcase() {
     <Section className="relative overflow-hidden">
       <BackgroundGrid size={80} opacity="subtle" maskPosition="bottom" />
       <Container>
-        <SectionHeader
-          title="One Tool, All Your Ecosystems"
-          description="Cluttered understands 12+ development ecosystems and cleans them all"
-        />
+        <SectionHeader title="One Tool, All Your Ecosystems" description="Cluttered understands 12+ development ecosystems and cleans them all" />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredEcosystems.map((ecosystem, index) => (
             <FadeIn key={ecosystem.id} delay={index * 0.1}>
-              <EcosystemCard
-                id={ecosystem.id}
-                name={ecosystem.name}
-                icon={ecosystem.icon}
-                color={ecosystem.color}
-              />
+              <EcosystemCard id={ecosystem.id} name={ecosystem.name} icon={ecosystem.icon} color={ecosystem.color} />
             </FadeIn>
           ))}
         </div>

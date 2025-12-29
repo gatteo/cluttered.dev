@@ -14,10 +14,7 @@ export function ArtifactList({ items }: ArtifactListProps) {
   return (
     <div className="my-8 grid gap-4">
       {items.map((item, index) => (
-        <div
-          key={index}
-          className="glass-card p-4 flex items-start gap-4"
-        >
+        <div key={index} className="glass-card p-4 flex items-start gap-4">
           <div className="p-2 rounded-lg bg-accent-purple/10">
             <Folder className="h-5 w-5 text-accent-purple" />
           </div>

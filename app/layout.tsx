@@ -107,9 +107,7 @@ export default function RootLayout({
             <PostHogPageView />
           </Suspense>
           <Header />
-          <main className="flex-1">
-            {children}
-          </main>
+          <main className="flex-1">{children}</main>
           <Footer />
         </PostHogProvider>
       </body>

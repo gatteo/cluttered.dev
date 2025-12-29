@@ -15,10 +15,7 @@ interface BreadcrumbProps {
 export function Breadcrumb({ items, className }: BreadcrumbProps) {
   return (
     <nav className={cn('flex items-center gap-2 text-sm', className)} aria-label="Breadcrumb">
-      <Link
-        href="/"
-        className="text-text-muted hover:text-text-secondary transition-colors"
-      >
+      <Link href="/" className="text-text-muted hover:text-text-secondary transition-colors">
         <Home className="w-4 h-4" />
       </Link>
 
@@ -26,10 +23,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
         <div key={index} className="flex items-center gap-2">
           <ChevronRight className="w-4 h-4 text-text-muted" />
           {item.href ? (
-            <Link
-              href={item.href}
-              className="text-text-secondary hover:text-text-primary transition-colors"
-            >
+            <Link href={item.href} className="text-text-secondary hover:text-text-primary transition-colors">
               {item.name}
             </Link>
           ) : (

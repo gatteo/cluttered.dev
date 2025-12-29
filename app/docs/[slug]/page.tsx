@@ -94,21 +94,14 @@ export default async function DocPage({ params }: DocPageProps) {
               <span className="text-sm text-text-muted">{doc.section}</span>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-              {doc.title}
-            </h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">{doc.title}</h1>
 
-            <p className="text-xl text-text-secondary">
-              {doc.description}
-            </p>
+            <p className="text-xl text-text-secondary">{doc.description}</p>
           </header>
 
           {/* Content */}
           <article className="mb-12">
-            <MDXContent
-              code={doc.body.code}
-              className="prose prose-lg prose-invert max-w-none"
-            />
+            <MDXContent code={doc.body.code} className="prose prose-lg prose-invert max-w-none" />
           </article>
 
           {/* Navigation */}
@@ -120,9 +113,7 @@ export default async function DocPage({ params }: DocPageProps) {
                     <ArrowLeft className="w-4 h-4" />
                     Previous
                   </div>
-                  <p className="font-medium text-text-primary group-hover:text-accent-purple transition-colors">
-                    {prev.title}
-                  </p>
+                  <p className="font-medium text-text-primary group-hover:text-accent-purple transition-colors">{prev.title}</p>
                 </Card>
               </Link>
             ) : (
@@ -136,9 +127,7 @@ export default async function DocPage({ params }: DocPageProps) {
                     Next
                     <ArrowRight className="w-4 h-4" />
                   </div>
-                  <p className="font-medium text-text-primary group-hover:text-accent-purple transition-colors">
-                    {next.title}
-                  </p>
+                  <p className="font-medium text-text-primary group-hover:text-accent-purple transition-colors">{next.title}</p>
                 </Card>
               </Link>
             ) : (

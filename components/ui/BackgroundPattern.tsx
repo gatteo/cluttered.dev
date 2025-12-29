@@ -9,12 +9,7 @@ interface BackgroundGridProps {
   maskPosition?: 'center' | 'top' | 'bottom'
 }
 
-export function BackgroundGrid({
-  className,
-  size = 70,
-  opacity = 'subtle',
-  maskPosition = 'center',
-}: BackgroundGridProps) {
+export function BackgroundGrid({ className, size = 70, opacity = 'subtle', maskPosition = 'center' }: BackgroundGridProps) {
   const opacityValues = {
     subtle: '11',
     light: '18',
@@ -30,10 +25,7 @@ export function BackgroundGrid({
   return (
     <div
       aria-hidden="true"
-      className={cn(
-        'pointer-events-none absolute inset-0 -z-10',
-        className
-      )}
+      className={cn('pointer-events-none absolute inset-0 -z-10', className)}
       style={{
         backgroundImage: `linear-gradient(to right, #ffffff${opacityValues[opacity]} 1px, transparent 1px), linear-gradient(to bottom, #ffffff${opacityValues[opacity]} 1px, transparent 1px)`,
         backgroundSize: `${size}px ${size}px`,
@@ -50,11 +42,7 @@ interface BackgroundGradientBlurProps {
   position?: 'top' | 'center' | 'bottom'
 }
 
-export function BackgroundGradientBlur({
-  className,
-  variant = 'purple',
-  position = 'top',
-}: BackgroundGradientBlurProps) {
+export function BackgroundGradientBlur({ className, variant = 'purple', position = 'top' }: BackgroundGradientBlurProps) {
   const positions = {
     top: 'top-0',
     center: 'top-1/2 -translate-y-1/2',
@@ -85,11 +73,7 @@ export function BackgroundGradientBlur({
   return (
     <div
       aria-hidden="true"
-      className={cn(
-        'pointer-events-none absolute inset-x-0 -z-10 mx-auto max-w-4xl opacity-15',
-        positions[position],
-        className
-      )}
+      className={cn('pointer-events-none absolute inset-x-0 -z-10 mx-auto max-w-4xl opacity-15', positions[position], className)}
     >
       <div className={cn('h-60 rounded-full bg-gradient-to-br blur-3xl', colors[variant])} />
     </div>
@@ -102,18 +86,11 @@ interface BackgroundDotsProps {
   spacing?: number
 }
 
-export function BackgroundDots({
-  className,
-  size = 1,
-  spacing = 24,
-}: BackgroundDotsProps) {
+export function BackgroundDots({ className, size = 1, spacing = 24 }: BackgroundDotsProps) {
   return (
     <div
       aria-hidden="true"
-      className={cn(
-        'pointer-events-none absolute inset-0 -z-10',
-        className
-      )}
+      className={cn('pointer-events-none absolute inset-0 -z-10', className)}
       style={{
         backgroundImage: `radial-gradient(#ffffff15 ${size}px, transparent ${size}px)`,
         backgroundSize: `${spacing}px ${spacing}px`,

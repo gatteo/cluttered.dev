@@ -1,0 +1,71 @@
+---
+title: "Protected Paths"
+description: "Configure paths that Cluttered should never clean."
+section: "Configuration"
+order: 1
+---
+
+## Overview
+
+Protected paths are directories that Cluttered will never suggest for cleaning, regardless of their content or activity status.
+
+Use this feature for:
+
+- Critical production projects
+- Shared codebases
+- Projects with unusual structures
+- Directories you never want touched
+
+## Adding Protected Paths
+
+### From the UI
+
+1. Open Cluttered preferences (⌘,)
+2. Go to the "Protected" tab
+3. Click "Add Path"
+4. Select the directory to protect
+5. Click "Save"
+
+### From the Scan Results
+
+1. Right-click on a project in the results
+2. Select "Protect this path"
+3. The project will be hidden from future scans
+
+## How Protection Works
+
+When a path is protected:
+
+- It won't appear in scan results
+- Its subdirectories are also protected
+- You can still manually navigate to it in Finder
+
+Protection is applied before scanning, so protected directories aren't even analyzed.
+
+## Default Protected Paths
+
+Cluttered automatically protects certain system paths:
+
+- `/System/` - macOS system files
+- `/Library/` - System library
+- `~/Library/` - User library (mostly)
+- `/.Trash/` - System trash
+- `/Volumes/` - External drives (by default)
+
+## Removing Protection
+
+To stop protecting a path:
+
+1. Open Cluttered preferences
+2. Go to the "Protected" tab
+3. Find the path in the list
+4. Click the remove button (✕)
+
+The directory will appear in the next scan.
+
+## Best Practices
+
+1. **Protect production directories**: If you have a critical app running from a directory, protect it
+2. **Use sparingly**: Too many protected paths reduce Cluttered's effectiveness
+3. **Review periodically**: Remove protection from paths you no longer need
+4. **Consider git protection**: Remember, Cluttered already protects projects with uncommitted changes

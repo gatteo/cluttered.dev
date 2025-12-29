@@ -1,0 +1,68 @@
+---
+title: "Node.js & JavaScript"
+description: "Clean node_modules, .next, dist, and other JavaScript build artifacts. Supports npm, yarn, pnpm, and bun."
+icon: "nodejs"
+color: "#22C55E"
+artifacts:
+  - "node_modules/"
+  - ".next/"
+  - "dist/"
+  - "build/"
+  - ".turbo/"
+  - ".parcel-cache/"
+  - ".nuxt/"
+  - ".output/"
+  - ".cache/"
+detectionFiles:
+  - "package.json"
+averageSize: "500MB - 2GB per project"
+order: 1
+---
+
+## Overview
+
+Node.js projects are notorious for their massive `node_modules` directories. A single React project can easily have 500MB+ in dependencies, and if you work on multiple projects, this adds up quickly.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| `node_modules/` | All npm dependencies | 200MB - 2GB |
+| `.next/` | Next.js build cache | 50MB - 500MB |
+| `dist/` | TypeScript/Webpack output | 10MB - 100MB |
+| `.turbo/` | Turborepo cache | 50MB - 500MB |
+
+## Why These Get So Large
+
+The JavaScript ecosystem has a deep dependency tree. A simple React app might have:
+- 1,500+ packages in node_modules
+- Hundreds of transitive dependencies
+- Multiple copies of the same package at different versions
+
+## Safety Considerations
+
+Cluttered protects your Node.js projects by:
+
+- Checking for uncommitted git changes
+- Detecting active `npm run` processes
+- Looking for recent `package-lock.json` modifications
+- Identifying VS Code workspace activity
+
+## Frequently Asked Questions
+
+**Will cleaning node_modules break my project?**
+
+No! Just run `npm install` to restore dependencies. All your code is untouched.
+
+**Does Cluttered support pnpm and yarn?**
+
+Yes! Cluttered detects all Node.js package managers and cleans appropriately.
+
+**What about global npm packages?**
+
+Cluttered only cleans project-local node_modules. Global packages are not touched.
+
+## Related Ecosystems
+
+- [Python](/ecosystems/python) - Similar venv/virtualenv patterns
+- [Ruby](/ecosystems/ruby) - Bundler's vendor/bundle

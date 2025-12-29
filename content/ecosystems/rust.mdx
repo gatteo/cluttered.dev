@@ -1,0 +1,70 @@
+---
+title: "Rust"
+description: "Clean target directories and cargo caches from Rust projects. Recover gigabytes of space from compiled artifacts."
+icon: "🦀"
+color: "#CE412B"
+artifacts:
+  - "target/"
+  - ".cargo/registry/cache"
+  - ".cargo/git"
+detectionFiles:
+  - "Cargo.toml"
+  - "Cargo.lock"
+averageSize: "2-10 GB per project"
+order: 2
+---
+
+## Overview
+
+Rust's compilation model creates some of the largest build artifacts in any ecosystem. A single project's `target/` directory can easily exceed 10 GB, especially with multiple build profiles.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| `target/` | Compiled artifacts, deps, debug info | 2-10 GB |
+| `target/debug/` | Debug build artifacts | 1-5 GB |
+| `target/release/` | Release build artifacts | 500 MB - 2 GB |
+| `.cargo/registry/cache` | Downloaded crate archives | 500 MB - 2 GB |
+
+## Why Rust Builds Are So Large
+
+Rust's compilation strategy includes:
+
+- **Incremental compilation data**: Speeds up rebuilds but consumes space
+- **Debug symbols**: Essential for debugging but very large
+- **Dependency builds**: Each dependency is compiled separately
+- **Multiple targets**: Each target (debug, release, tests) has separate artifacts
+
+## Safety Considerations
+
+Cluttered protects your Rust projects by:
+
+- Checking for uncommitted git changes
+- Detecting running `cargo build` or `cargo run` processes
+- Looking for recent Cargo.lock modifications
+- Identifying active editor sessions
+
+## Restoring After Cleanup
+
+After cleaning, simply run:
+
+```bash
+cargo build
+```
+
+Rust will recompile your dependencies and project. First build after cleanup will take longer, but subsequent builds use incremental compilation.
+
+## Frequently Asked Questions
+
+**Will cleaning break my binaries?**
+
+If you clean `target/release/`, the compiled binary is removed. You'll need to rebuild. Your source code is always safe.
+
+**What about cargo install binaries?**
+
+Cluttered doesn't touch globally installed binaries in `~/.cargo/bin`. Only project-local targets are cleaned.
+
+**Should I clean the registry cache?**
+
+The registry cache speeds up dependency downloads. Clean it if you need space; Cargo will re-download as needed.

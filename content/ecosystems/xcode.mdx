@@ -1,0 +1,81 @@
+---
+title: "Xcode & iOS"
+description: "Clean DerivedData, build caches, and simulator data from iOS, macOS, watchOS, and tvOS projects."
+icon: "🍎"
+color: "#147EFB"
+artifacts:
+  - "DerivedData/"
+  - "Build/"
+  - "ModuleCache/"
+  - "Archives/"
+  - "Simulator Device Data"
+detectionFiles:
+  - "*.xcodeproj"
+  - "*.xcworkspace"
+  - "Package.swift"
+averageSize: "5-30 GB per project"
+order: 3
+---
+
+## Overview
+
+Xcode is one of the most disk-hungry development environments. Between DerivedData, module caches, and iOS Simulator data, Apple developers often have 50+ GB consumed without realizing it.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| `DerivedData/` | Build products and indexes | 5-20 GB |
+| `ModuleCache/` | Precompiled module headers | 1-5 GB |
+| `Archives/` | Archived builds for distribution | 1-10 GB |
+| `iOS DeviceSupport/` | Device debug symbols | 5-15 GB |
+| Simulator Data | Unused simulator runtimes | 5-20 GB |
+
+## Why Xcode Uses So Much Space
+
+Xcode's aggressive caching strategy includes:
+
+- **Indexing data**: Full source code index for autocomplete
+- **Module caches**: Precompiled Swift/Objective-C modules
+- **Build intermediates**: Object files, asset catalogs
+- **Device support**: Debug symbols for every iOS version tested
+
+## Global vs Project Locations
+
+DerivedData is typically stored in one of two locations:
+
+1. **Default**: `~/Library/Developer/Xcode/DerivedData/`
+2. **Relative to project**: `./DerivedData/` (if configured)
+
+Cluttered scans both locations automatically.
+
+## Safety Considerations
+
+Cluttered protects your Apple projects by:
+
+- Checking for uncommitted git changes
+- Detecting if Xcode is running with the project open
+- Identifying recent `.xcuserstate` modifications
+- Preserving active Archives for App Store submission
+
+## Restoring After Cleanup
+
+After cleaning DerivedData:
+
+1. Open your project in Xcode
+2. Build (⌘B) - Xcode will regenerate everything
+3. First build will take longer; subsequent builds are fast
+
+## Frequently Asked Questions
+
+**Is it safe to delete DerivedData?**
+
+Yes! This is one of the first things Apple Support recommends when troubleshooting Xcode issues.
+
+**Will I lose my Archives?**
+
+Cluttered shows Archives separately and asks for confirmation before cleaning them. These are needed for App Store submissions.
+
+**What about simulator data?**
+
+Unused simulator runtimes can be safely removed. Active simulators are preserved.

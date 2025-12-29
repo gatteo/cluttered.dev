@@ -1,0 +1,101 @@
+---
+title: "How Cluttered Keeps You Safe"
+description: "Understanding Cluttered's safety mechanisms and how they protect your work."
+section: "Safety"
+order: 1
+---
+
+## Safety Philosophy
+
+Cluttered is designed with one core principle: **never lose your work**.
+
+Every feature is built around this goal. We'd rather miss a cleanup opportunity than risk damaging your projects.
+
+## Git Integration
+
+Cluttered integrates with git to protect your uncommitted work:
+
+### What We Check
+
+- **Uncommitted changes**: Files modified but not committed
+- **Untracked files**: New files not yet added to git
+- **Stashed changes**: Work saved with `git stash`
+
+### How It Works
+
+Before suggesting cleanup for any git repository, Cluttered runs the equivalent of:
+
+```bash
+git status --porcelain
+```
+
+If there are any changes, the project is marked as "has changes" and you'll see a warning before cleaning.
+
+## Activity Detection
+
+Beyond git, Cluttered uses multiple signals to determine if a project is active:
+
+1. **File modification times**: When were project files last changed?
+2. **Editor signals**: Is VS Code or another editor currently open?
+3. **Process detection**: Are build processes running?
+4. **Lock files**: Are there active npm/cargo/etc. processes?
+
+## Trash-First Deletion
+
+Everything Cluttered deletes goes to your system Trash first:
+
+- ✅ You can undo any deletion
+- ✅ Files stay in Trash until you empty it
+- ✅ Familiar macOS behavior
+
+We never use `rm -rf` or permanent deletion.
+
+## What We Never Touch
+
+Cluttered has a strict allowlist of what it will clean:
+
+**Safe to clean:**
+- `node_modules/`
+- `target/` (Rust)
+- `DerivedData/` (Xcode)
+- Build output folders
+- Cache directories
+
+**Never touched:**
+- Source code files
+- Configuration files
+- `.git/` directories
+- Documentation
+- Anything not on our allowlist
+
+## Warnings and Confirmations
+
+Before any cleanup, Cluttered shows you:
+
+1. Exactly what will be deleted
+2. Total size to be recovered
+3. Warnings for active projects
+4. A confirmation dialog
+
+You're always in control.
+
+## Recovery
+
+If something goes wrong:
+
+1. Open Finder
+2. Go to Trash
+3. Find the deleted files (sorted by deletion date)
+4. Right-click and select "Put Back"
+
+Files are restored to their original location.
+
+## Reporting Issues
+
+If Cluttered ever suggests cleaning something it shouldn't:
+
+1. Don't proceed with the cleanup
+2. Take a screenshot
+3. Report the issue on [GitHub](https://github.com/cluttered-dev/cluttered/issues)
+
+We take false positives seriously and will fix them immediately.

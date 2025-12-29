@@ -1,7 +1,16 @@
-import type { NextConfig } from "next";
+import { withContentlayer } from 'next-contentlayer2'
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  images: {
+    unoptimized: true,
+  },
 
-export default nextConfig;
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion', 'date-fns'],
+  },
+
+  trailingSlash: true,
+}
+
+export default withContentlayer(nextConfig)

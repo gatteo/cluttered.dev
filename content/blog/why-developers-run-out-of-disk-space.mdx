@@ -1,0 +1,68 @@
+---
+title: "Why Developers Always Run Out of Disk Space"
+description: "A deep dive into where all your storage goes and what you can do about it. Spoiler: it's not your Steam library."
+date: 2024-12-20
+author: "Cluttered Team"
+category: "Insights"
+tags: ["disk space", "productivity", "developer tools"]
+featured: true
+---
+
+If you're a developer, you've probably seen that dreaded notification: "Your disk is almost full." It always seems to happen at the worst possible moment—during a critical build, while downloading a large dataset, or right before a demo.
+
+But have you ever stopped to wonder where all that space actually goes?
+
+## The Usual Suspects
+
+### 1. node_modules: The Black Hole
+
+Every JavaScript developer knows the pain. A single `npm install` can pull in hundreds of megabytes of dependencies. Multiply that across 10-20 projects, and you're looking at 20-40 GB easily.
+
+The real kicker? Many of those `node_modules` folders are in projects you haven't touched in months.
+
+### 2. Rust's target Directory
+
+Rust is fantastic for performance, but those compile artifacts add up fast. A single release build can exceed 10 GB. If you're working on multiple Rust projects, the `target` directories alone might be consuming 50+ GB.
+
+### 3. Xcode's DerivedData
+
+iOS and macOS developers know this one well. Xcode's `DerivedData` folder quietly accumulates build artifacts, caches, and indexes. It's not uncommon for this folder to reach 30-50 GB.
+
+### 4. Docker Images and Containers
+
+Docker makes development easier, but those images pile up. Old versions, dangling images, unused containers—it all adds up. A typical development machine can easily have 20-30 GB tied up in Docker data.
+
+## Why Traditional Tools Don't Help
+
+Generic disk cleaning utilities like CleanMyMac or DaisyDisk are great for finding large files, but they don't understand developer workflows. They might show you a massive folder, but they can't tell you:
+
+- Is this project still active?
+- Is it safe to delete these artifacts?
+- Will deleting this break anything?
+
+That's why we built Cluttered. It understands the difference between a project you're actively working on and one you abandoned six months ago.
+
+## The Smart Approach
+
+Instead of blindly deleting large folders, Cluttered:
+
+1. **Scans intelligently** - Recognizes project structures across 12+ ecosystems
+2. **Checks activity** - Uses git history and file modification times to determine if a project is active
+3. **Protects your work** - Never suggests deleting uncommitted changes
+4. **Makes it reversible** - Everything goes to Trash first
+
+## How Much Space Can You Recover?
+
+Based on our testing across dozens of developer machines:
+
+- **Average recovery**: 50-100 GB
+- **Heavy users**: 150+ GB
+- **Fastest cleanup**: Under 5 minutes
+
+The best part? You can reclaim all this space without losing any actual code or work.
+
+## Conclusion
+
+Disk space management doesn't have to be stressful. With the right tool, you can keep your machine clean without worrying about breaking anything.
+
+[Try Cluttered free](/download) and see how much space you can reclaim.

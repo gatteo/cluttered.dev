@@ -1,0 +1,88 @@
+---
+title: "Cluttered vs DaisyDisk"
+description: "DaisyDisk helps you visualize disk usage, but doesn't know which files are safe to delete. Here's the comparison."
+competitor: "DaisyDisk"
+competitorUrl: "https://daisydiskapp.com"
+verdict: "Cluttered provides actionable insights, not just visuals"
+featured: true
+---
+
+## Overview
+
+DaisyDisk is a beautiful disk space analyzer with an iconic sunburst visualization. It's great for understanding what's using your space, but it stops there.
+
+Cluttered goes further—it tells you what's safe to clean.
+
+## What DaisyDisk Does
+
+DaisyDisk excels at:
+
+- **Visualization**: Beautiful sunburst chart of disk usage
+- **Speed**: Very fast initial scan
+- **Navigation**: Easy drilling into folder hierarchies
+- **Discovery**: Finding unexpected large files
+
+## The Problem with DaisyDisk for Developers
+
+DaisyDisk shows you have 20 GB in a folder called "target", but it can't tell you:
+
+- Is this a Rust project or something else?
+- Is there uncommitted work in this project?
+- When was this project last active?
+- Is it safe to delete?
+
+You're left to figure this out yourself for every folder.
+
+## How Cluttered is Different
+
+| Capability | DaisyDisk | Cluttered |
+|------------|-----------|-----------|
+| Disk visualization | ✅ Beautiful | ⚠️ Functional |
+| Project detection | ❌ None | ✅ 12+ ecosystems |
+| Safety analysis | ❌ None | ✅ Git-aware |
+| Activity detection | ❌ None | ✅ Built-in |
+| One-click cleanup | ❌ Manual | ✅ Automated |
+
+## Workflow Comparison
+
+### With DaisyDisk:
+1. Run scan
+2. Navigate to large folder
+3. Wonder "what is this?"
+4. Open Terminal, check git status
+5. Decide if safe to delete
+6. Delete manually
+7. Repeat for each folder
+
+### With Cluttered:
+1. Run scan
+2. See all projects with activity indicators
+3. Select inactive projects
+4. Click "Clean"
+5. Done
+
+## When to Use Each
+
+**Use DaisyDisk when:**
+- You need to understand overall disk usage
+- You're looking for unexpected large files
+- You want a general-purpose disk analyzer
+
+**Use Cluttered when:**
+- You specifically want to clean development artifacts
+- You need safety guarantees for your projects
+- You want actionable recommendations, not just data
+
+## They Work Great Together
+
+The ideal workflow:
+
+1. Use **DaisyDisk** to get a high-level overview
+2. Use **Cluttered** to clean development artifacts safely
+3. Use **DaisyDisk** again to find any remaining large files
+
+## Conclusion
+
+DaisyDisk answers "what's using my space?" Cluttered answers "what can I safely delete?"
+
+For developers, the second question is more important. That's why we built Cluttered.

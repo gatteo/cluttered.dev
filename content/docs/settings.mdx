@@ -1,0 +1,194 @@
+---
+title: "Settings"
+description: "Configure Cluttered to match your workflow and preferences."
+section: "Configuration"
+order: 6
+---
+
+## Accessing Settings
+
+Open Settings with:
+- **⌘,** (keyboard shortcut)
+- **Cluttered → Settings** (menu bar)
+- **Gear icon** in the sidebar
+
+## General Settings
+
+### Appearance
+
+| Setting | Options | Default |
+|---------|---------|---------|
+| Theme | System, Light, Dark | System |
+| Accent color | Purple, Blue, Green, Orange | Purple |
+| Show dock icon | Yes, No | Yes |
+
+### Behavior
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| Launch at login | Start Cluttered when you log in | Off |
+| Show in menu bar | Menu bar icon for quick access | On |
+| Confirm before cleaning | Show confirmation dialog | On |
+| Sound effects | Play sounds on actions | On |
+
+## Scan Settings
+
+### Scan Locations
+
+Configure which directories Cluttered scans:
+
+**Add a location:**
+1. Click the **+** button
+2. Select a directory
+3. Choose scan depth (recommended: 5-10 levels)
+
+**Remove a location:**
+1. Hover over the location
+2. Click the **×** button
+
+### Default Locations
+
+Cluttered scans these by default:
+- `~/Developer`
+- `~/Projects`
+- `~/Code`
+- `~/Documents`
+- `~/Desktop`
+
+### Exclusions
+
+Directories to never scan:
+
+- System directories (automatic)
+- Application bundles (automatic)
+- Custom exclusions (you add these)
+
+**Add an exclusion:**
+1. Click **Add Exclusion**
+2. Select directory or enter pattern
+3. Pattern example: `*/backup/*`
+
+## Ecosystem Settings
+
+### Enabled Ecosystems
+
+Toggle which ecosystems Cluttered detects:
+
+- ✅ Node.js
+- ✅ Rust
+- ✅ Xcode
+- ✅ Python
+- ✅ Docker
+- ✅ Go
+- ... and more
+
+Disabling an ecosystem speeds up scanning if you don't use it.
+
+### Ecosystem-Specific Settings
+
+Some ecosystems have additional options:
+
+**Docker:**
+- Clean unused images only
+- Clean stopped containers
+- Clean build cache
+- Clean unused volumes
+
+**Xcode:**
+- Clean DerivedData
+- Clean Archives
+- Clean Device Support
+- Clean Simulators
+
+## Safety Settings
+
+### Protection Level
+
+| Level | Behavior |
+|-------|----------|
+| Strict | Warn for any recent activity (7 days) |
+| Standard | Warn for active projects (uncommitted changes) |
+| Relaxed | Minimal warnings (not recommended) |
+
+### Protected Paths
+
+Directories that are never cleaned:
+
+- System paths (automatic)
+- Custom protected paths (you add these)
+
+See [Protected Paths](/docs/protected-paths) for details.
+
+### Git Protection
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| Check uncommitted changes | Warn if git status shows changes | On |
+| Check unpushed commits | Warn if commits aren't pushed | Off |
+| Protect .git directory | Never clean .git contents | On |
+
+## Notification Settings
+
+### Cleanup Notifications
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| Show completion | Notify when cleanup finishes | On |
+| Show space recovered | Include GB recovered | On |
+| Show errors | Notify on failures | On |
+
+### Scheduled Scan Notifications (Pro)
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| Scan complete | Notify after scheduled scans | On |
+| Space threshold | Notify if reclaimable > X GB | 10 GB |
+| Weekly summary | Send weekly digest | Off |
+
+## Pro Settings
+
+These settings require Cluttered Pro:
+
+### Automation
+
+- **Scheduled scans**: Daily, weekly, or monthly
+- **Auto-clean rules**: Clean based on criteria
+- **Low disk space alerts**: Warn when running low
+
+### Analytics
+
+- **Space Lens**: Visual breakdown of disk usage
+- **Cleanup history**: Detailed analytics
+- **Trends**: Space recovered over time
+
+## Keyboard Shortcuts
+
+Customize keyboard shortcuts:
+
+| Action | Default | Customizable |
+|--------|---------|--------------|
+| Scan | ⌘R | Yes |
+| Clean selected | ⌘⇧C | Yes |
+| Settings | ⌘, | No |
+| Select all | ⌘A | No |
+
+## Reset Settings
+
+To reset all settings to defaults:
+
+1. Open Settings
+2. Scroll to the bottom
+3. Click **Reset to Defaults**
+4. Confirm the reset
+
+This doesn't affect your license or cleaning history.
+
+## Configuration File
+
+Advanced users can edit the config file directly:
+
+```bash
+~/Library/Application Support/Cluttered/config.json
+```
+
+**Warning**: Edit with caution. Invalid JSON will reset to defaults.

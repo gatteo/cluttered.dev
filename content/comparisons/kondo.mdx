@@ -1,0 +1,96 @@
+---
+title: "Cluttered vs kondo"
+description: "kondo is a fast CLI cleaner for multiple ecosystems. See how it compares to Cluttered's visual approach."
+competitor: "kondo"
+competitorUrl: "https://github.com/tbillington/kondo"
+verdict: "Similar scope, different approach—CLI vs GUI"
+featured: false
+---
+
+## Overview
+
+kondo is a Rust-based command-line tool that cleans project build artifacts across multiple programming languages. It's fast, supports many ecosystems, and has a loyal following among CLI enthusiasts.
+
+So how does it compare to Cluttered?
+
+## What kondo Does Well
+
+kondo excels at:
+
+- **Speed**: Written in Rust, very fast scanning
+- **Multi-ecosystem**: Supports Node, Rust, Python, Go, and more
+- **Lightweight**: Single binary, no dependencies
+- **Scriptable**: Easy to integrate into shell scripts
+
+## Feature Comparison
+
+| Feature | kondo | Cluttered |
+|---------|-------|-----------|
+| Multi-ecosystem | ✅ 15+ | ✅ 12+ |
+| GUI interface | ❌ | ✅ |
+| CLI interface | ✅ | Pro only |
+| Git protection | ❌ | ✅ |
+| Activity detection | ❌ | ✅ |
+| Trash support | ❌ | ✅ |
+| Undo capability | ❌ | ✅ |
+
+## Safety Comparison
+
+This is where the tools differ significantly:
+
+| Safety Feature | kondo | Cluttered |
+|----------------|-------|-----------|
+| Uncommitted changes warning | ❌ | ✅ |
+| Active project detection | ❌ | ✅ |
+| Recent activity indicators | ❌ | ✅ |
+| Move to Trash first | ❌ | ✅ |
+| Undo deletion | ❌ | ✅ |
+
+kondo permanently deletes files. Cluttered moves them to Trash first.
+
+## Interface Philosophy
+
+**kondo** follows Unix philosophy: do one thing well, in the terminal.
+
+```bash
+# kondo usage
+kondo ~/projects
+```
+
+**Cluttered** provides a visual interface with:
+- Project cards with activity indicators
+- Space breakdown per ecosystem
+- One-click cleanup with confirmation
+- History of all cleaning operations
+
+## When to Use Each
+
+**Use kondo if:**
+- You strongly prefer CLI tools
+- You want to script cleanup in cron jobs
+- You trust yourself not to delete active projects
+- You don't need undo capability
+
+**Use Cluttered if:**
+- You want visual project overview
+- You need safety features and undo
+- You prefer clicking over typing
+- You want to see project activity before cleaning
+
+## Performance Comparison
+
+Both tools are fast:
+
+| Metric | kondo | Cluttered |
+|--------|-------|-----------|
+| Scan 1000 projects | ~2s | ~5s |
+| Memory usage | ~10MB | ~50MB |
+| Startup time | Instant | ~1s |
+
+kondo is faster due to its minimal Rust binary. Cluttered trades some speed for features and visual interface.
+
+## Conclusion
+
+kondo and Cluttered target similar problems but different users. kondo is for CLI power users who want speed. Cluttered is for developers who want safety and visual feedback.
+
+If you're comfortable with permanent deletion and love the terminal, kondo is excellent. If you want peace of mind and a visual overview, Cluttered is the better choice.

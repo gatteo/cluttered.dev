@@ -1,0 +1,136 @@
+---
+title: "Cluttered vs Manual Cleanup"
+description: "Why use a tool when you can just delete node_modules yourself? Here's the math on manual vs automated cleanup."
+competitor: "Manual Cleanup"
+competitorUrl: ""
+verdict: "Cluttered saves hours of manual work every month"
+featured: false
+---
+
+## Overview
+
+You're a developer. You know how to delete folders. Why would you need a tool for that?
+
+It's a fair question. Let's break down the real cost of manual cleanup versus using Cluttered.
+
+## The Manual Approach
+
+Here's what manual cleanup typically looks like:
+
+```bash
+# Find node_modules
+find ~/projects -name "node_modules" -type d
+
+# Check each one manually
+cd ~/projects/old-project
+ls -la node_modules  # How big is it?
+git status           # Any uncommitted changes?
+stat package.json    # When was this last modified?
+
+# Decide and delete
+rm -rf node_modules
+
+# Repeat for every project...
+```
+
+## Time Investment
+
+Let's do the math for a typical developer with 20 projects:
+
+| Task | Time per project | Total for 20 projects |
+|------|-----------------|----------------------|
+| Find directories | - | 5 min |
+| Check each project | 2 min | 40 min |
+| Decide what to clean | 1 min | 20 min |
+| Run deletion commands | 30 sec | 10 min |
+| **Total** | | **75 min** |
+
+With Cluttered:
+
+| Task | Time |
+|------|------|
+| Scan | 30 sec |
+| Review and select | 3 min |
+| Clean | 30 sec |
+| **Total** | **4 min** |
+
+**Cluttered is 18x faster.**
+
+## Ecosystems Multiply the Problem
+
+Manual cleanup for one ecosystem is tedious. Now multiply by 12:
+
+- node_modules (npm, yarn, pnpm)
+- target/ (Rust)
+- DerivedData (Xcode)
+- venv (Python)
+- build/ (Gradle, Maven)
+- vendor/ (Go, Ruby, PHP)
+- ...and more
+
+Each ecosystem has different:
+- Directory names
+- Safe deletion patterns
+- Detection of active projects
+- Restoration commands
+
+## What Manual Cleanup Misses
+
+| Factor | Manual | Cluttered |
+|--------|--------|-----------|
+| Hidden directories | Often missed | Always found |
+| Nested projects | Requires recursive search | Automatic detection |
+| Project activity | Manual git status | Instant indicators |
+| Space tracking | Manual calculation | Running totals |
+| History | No record | Full log |
+
+## The Real Risk
+
+Manual cleanup has higher error potential:
+
+- **Wrong directory**: `rm -rf` in the wrong folder is catastrophic
+- **Active project**: Deleting while building causes issues
+- **No undo**: Gone means gone
+- **Muscle memory**: Dangerous when tired
+
+Cluttered prevents these by:
+- Showing clear project names and paths
+- Detecting active builds and git status
+- Moving to Trash before permanent deletion
+- Providing full history and undo
+
+## When Manual Makes Sense
+
+Manual cleanup is fine if:
+
+- You have only 1-2 projects
+- You work in a single ecosystem
+- You enjoy terminal archaeology
+- You never make mistakes while tired
+
+## When Cluttered Makes Sense
+
+Cluttered pays for itself if:
+
+- You have more than 5 projects
+- You work across multiple ecosystems
+- You value your time
+- You want safety rails
+
+## The Monthly Calculation
+
+| Approach | Monthly Time | Annual Time |
+|----------|-------------|-------------|
+| Manual (weekly) | 5 hours | 60 hours |
+| Cluttered | 20 min | 4 hours |
+| **Time saved** | **4.7 hours/month** | **56 hours/year** |
+
+That's more than a full work week saved per year.
+
+## Conclusion
+
+Manual cleanup works, but it doesn't scale. Every new project and every new language adds to the maintenance burden.
+
+Cluttered automates the tedious parts while keeping you in control. It's not about whether you *can* do it manually—it's about whether you *should*.
+
+Your time is better spent building things, not hunting for node_modules.

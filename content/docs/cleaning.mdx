@@ -1,0 +1,157 @@
+---
+title: "Cleaning"
+description: "Learn how to safely clean projects and manage deletions in Cluttered."
+section: "Core Concepts"
+order: 4
+---
+
+## The Cleaning Process
+
+Cluttered's cleaning process is designed to be safe and reversible. Here's how it works:
+
+1. **Select projects** to clean
+2. **Review** the cleanup preview
+3. **Confirm** the deletion
+4. **Files move to Trash** (not permanently deleted)
+
+## Selecting Projects
+
+### Individual Selection
+
+Click on project cards to select them. Selected projects show a checkmark and are highlighted.
+
+### Bulk Selection
+
+Use keyboard shortcuts for faster selection:
+
+| Shortcut | Action |
+|----------|--------|
+| ⌘A | Select all projects |
+| ⌘⇧A | Deselect all |
+| Click + Shift | Select range |
+
+### Smart Selection (Pro)
+
+Pro users can use smart filters:
+
+- **Dormant projects**: Inactive for 30+ days
+- **Large projects**: Over 1GB reclaimable
+- **Specific ecosystem**: Just Node.js, just Rust, etc.
+
+## Preview Before Cleaning
+
+Before any deletion, Cluttered shows:
+
+- Total space to be recovered
+- Number of projects affected
+- Warnings for active projects
+- List of artifacts to be removed
+
+**Always review this screen.** It's your last chance to exclude projects.
+
+## Trash-First Deletion
+
+Cluttered never permanently deletes files immediately:
+
+1. Files are moved to your system Trash
+2. macOS keeps Trash for 30 days by default
+3. You can recover any file from Trash
+4. Empty Trash when you're confident
+
+### Why Trash?
+
+This approach means:
+- Mistakes are recoverable
+- You have a 30-day safety window
+- No special "undo" system needed
+- Works with macOS conventions
+
+## What Gets Cleaned
+
+Cluttered only removes **regenerable artifacts**:
+
+| Cleaned | Never Touched |
+|---------|---------------|
+| node_modules | package.json |
+| target/ (Rust) | Cargo.toml |
+| venv/ | requirements.txt |
+| DerivedData | Source files |
+| build/ | Configuration |
+
+Your source code, configuration files, and lockfiles are always preserved.
+
+## Cleaning Specific Artifacts
+
+By default, selecting a project cleans all its artifacts. To clean selectively:
+
+1. Click the project card to expand it
+2. Uncheck artifacts you want to keep
+3. Proceed with cleaning
+
+This is useful when you want to clean `node_modules` but keep `.next` cache.
+
+## Post-Cleanup Recovery
+
+If you need to restore:
+
+### From Trash
+
+1. Open Finder → Go → Go to Folder
+2. Enter `~/.Trash`
+3. Find your artifacts
+4. Drag back to original location
+
+### By Reinstalling
+
+Most artifacts can be regenerated:
+
+```bash
+# Node.js
+npm install
+
+# Rust
+cargo build
+
+# Python
+pip install -r requirements.txt
+
+# Go
+go mod download
+```
+
+## Cleaning History
+
+Cluttered keeps a log of all cleaning operations:
+
+- **When**: Date and time of cleanup
+- **What**: Projects and artifacts cleaned
+- **How much**: Space recovered
+- **Status**: Whether items are still in Trash
+
+Access history from the **History** tab in the sidebar.
+
+## Automation (Pro)
+
+Pro users can automate cleaning:
+
+### Scheduled Scans
+
+Set Cluttered to scan automatically:
+- Daily, weekly, or monthly
+- At a specific time
+- When disk space is low
+
+### Auto-Clean Rules
+
+Configure rules like:
+- "Clean projects inactive for 60+ days"
+- "Clean when reclaimable space exceeds 10GB"
+- "Notify but don't auto-clean active projects"
+
+## Best Practices
+
+1. **Start with dormant projects**: Red indicators mean 30+ days inactive
+2. **Review before cleaning**: Always check the preview
+3. **Don't empty Trash immediately**: Wait a few days
+4. **Clean regularly**: Weekly cleaning prevents large accumulations
+5. **Trust the safety features**: Cluttered warns you for a reason

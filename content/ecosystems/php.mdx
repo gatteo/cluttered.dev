@@ -1,0 +1,77 @@
+---
+title: "PHP"
+description: "Clean Composer vendor directories, caches, and framework-specific artifacts. Supports Laravel, Symfony, and WordPress."
+icon: "php"
+color: "#8B5CF6"
+artifacts:
+  - "vendor/"
+  - "storage/framework/cache/"
+  - "storage/framework/views/"
+  - "bootstrap/cache/"
+  - "var/cache/"
+detectionFiles:
+  - "composer.json"
+  - "composer.lock"
+averageSize: "50MB - 500MB per project"
+order: 9
+---
+
+## Overview
+
+PHP projects using Composer accumulate vendor directories with all their dependencies. Laravel and Symfony projects also generate significant cache data during development.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| `vendor/` | Composer dependencies | 50MB - 400MB |
+| Framework caches | Laravel/Symfony caches | 10MB - 100MB |
+| Compiled views | Blade/Twig compiled templates | 5MB - 50MB |
+| Log files | Application logs | 10MB - 500MB |
+
+## Why PHP Projects Get Large
+
+PHP projects grow from:
+
+- **Composer packages**: Full package sources with dev dependencies
+- **Framework caches**: Route, config, and view caches
+- **Autoloader optimization**: Compiled class maps
+- **Development tools**: PHPUnit, PHPStan, Rector
+
+## Safety Considerations
+
+Cluttered protects your PHP projects by:
+
+- Detecting running PHP servers (built-in, artisan serve)
+- Checking for active queue workers
+- Identifying recent composer.lock changes
+- Preserving production cache configurations
+
+## Framework Support
+
+| Framework | Detection | Clean Support |
+|-----------|-----------|---------------|
+| Laravel | artisan file | Full |
+| Symfony | symfony.lock | Full |
+| WordPress | wp-config.php | Partial |
+| Drupal | core/composer.json | Partial |
+
+## Frequently Asked Questions
+
+**Will cleaning vendor/ break my application?**
+
+No. Run `composer install` to restore. Your composer.lock ensures exact versions.
+
+**What about WordPress plugins?**
+
+Cluttered treats wp-content/plugins as source code, not build artifacts. Only caches are cleaned.
+
+**Does it clean opcache?**
+
+PHP opcache is managed by the PHP runtime. Cluttered focuses on file-system artifacts.
+
+## Related Ecosystems
+
+- [Node.js](/ecosystems/nodejs) - npm/yarn follows similar patterns
+- [Ruby](/ecosystems/ruby) - Bundler is conceptually similar
+- [Python](/ecosystems/python) - Composer inspired by pip/virtualenv

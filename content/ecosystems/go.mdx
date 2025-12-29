@@ -1,0 +1,79 @@
+---
+title: "Go"
+description: "Clean Go module cache, build artifacts, and vendor directories. Reclaim space from your Go development environment."
+icon: "go"
+color: "#14B8A6"
+artifacts:
+  - "vendor/"
+  - "bin/"
+  - "pkg/"
+detectionFiles:
+  - "go.mod"
+  - "go.sum"
+averageSize: "100MB - 1GB per project"
+order: 6
+---
+
+## Overview
+
+Go's module system and fast compilation are great for development, but the module cache and vendor directories can grow significantly over time, especially if you work on multiple projects.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| `vendor/` | Vendored dependencies | 50MB - 500MB |
+| Local `bin/` | Compiled binaries | 10MB - 100MB |
+| `pkg/` | Compiled packages | 20MB - 200MB |
+
+## Go Module Cache
+
+The Go module cache (`~/go/pkg/mod`) is shared across all projects. Cluttered can help you:
+
+- Identify modules not used by any current project
+- Find outdated versions of modules
+- Clean test and build caches
+
+## Why Go Artifacts Grow
+
+- **Vendored dependencies**: Full copies in each project
+- **Multiple module versions**: Different projects use different versions
+- **Cross-compilation**: Builds for multiple OS/arch combinations
+- **CGO dependencies**: C libraries compiled for Go
+
+## Safety Considerations
+
+Cluttered protects your Go projects by:
+
+- Never cleaning go.mod or go.sum files
+- Detecting running `go build` or `go test` processes
+- Checking for recent file modifications
+- Preserving actively developed modules
+
+## Cleaning Commands Comparison
+
+| Action | Go Command | Cluttered |
+|--------|-----------|-----------|
+| Clean build cache | `go clean -cache` | Visual selection |
+| Clean test cache | `go clean -testcache` | Visual selection |
+| Clean module cache | `go clean -modcache` | Smart cleanup |
+| Clean vendor | Manual | One-click |
+
+## Frequently Asked Questions
+
+**Will cleaning vendor/ break my build?**
+
+Only if you're in an air-gapped environment. Run `go mod vendor` to restore.
+
+**What about the global module cache?**
+
+Cluttered Pro can analyze and clean the global `~/go/pkg/mod` cache, showing which modules are unused.
+
+**Does it affect my GOPATH?**
+
+Cluttered focuses on module-based projects. Legacy GOPATH setups are detected but handled carefully.
+
+## Related Ecosystems
+
+- [Rust](/ecosystems/rust) - Similar compiled language with large build artifacts
+- [Docker](/ecosystems/docker) - Go is popular for building minimal containers

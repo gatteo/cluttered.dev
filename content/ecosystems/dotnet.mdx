@@ -1,0 +1,88 @@
+---
+title: ".NET"
+description: "Clean bin/obj directories, NuGet packages, and build artifacts. Supports .NET Core, .NET Framework, and .NET MAUI."
+icon: "dotnet"
+color: "#8B5CF6"
+artifacts:
+  - "bin/"
+  - "obj/"
+  - "packages/"
+  - ".vs/"
+  - "TestResults/"
+detectionFiles:
+  - "*.csproj"
+  - "*.fsproj"
+  - "*.sln"
+  - "global.json"
+averageSize: "100MB - 1GB per project"
+order: 12
+---
+
+## Overview
+
+.NET projects generate significant build outputs across multiple directories. Multi-project solutions multiply this, with each project having its own bin and obj folders for each build configuration.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| `bin/` | Compiled assemblies and dependencies | 50MB - 500MB |
+| `obj/` | Intermediate build files | 50MB - 300MB |
+| `.vs/` | Visual Studio settings and cache | 10MB - 200MB |
+| `TestResults/` | Test output and coverage | 10MB - 100MB |
+| `packages/` | Legacy NuGet packages | 100MB - 1GB |
+
+## Why .NET Builds Get Large
+
+.NET projects accumulate space from:
+
+- **Build configurations**: Debug and Release each have separate outputs
+- **Multi-targeting**: netstandard, net6.0, net8.0 multiply outputs
+- **Self-contained deployments**: Include entire runtime
+- **Solution size**: Large solutions have many bin/obj directories
+
+## Safety Considerations
+
+Cluttered protects your .NET projects by:
+
+- Detecting running dotnet processes
+- Checking for active Visual Studio sessions
+- Identifying recently built configurations
+- Preserving published outputs
+
+## Framework Support
+
+| Framework | Detection | Clean Support |
+|-----------|-----------|---------------|
+| .NET Core/5+ | *.csproj with SDK | Full |
+| .NET Framework | *.csproj legacy | Full |
+| .NET MAUI | .maui workload | Full |
+| Blazor | Blazor SDK | Full |
+
+## Build Commands Comparison
+
+| Action | dotnet CLI | Cluttered |
+|--------|-----------|-----------|
+| Clean project | `dotnet clean` | Visual selection |
+| Clean solution | `dotnet clean sln` | One-click |
+| Deep clean | Manual | All at once |
+
+## Frequently Asked Questions
+
+**Will cleaning break my project?**
+
+No. Run `dotnet build` to rebuild. Your source code and project files remain intact.
+
+**What about the global NuGet cache?**
+
+The `~/.nuget/packages` cache is shared. Cluttered Pro can analyze and clean unused packages.
+
+**Does it clean Visual Studio caches?**
+
+Project-level `.vs` directories can be cleaned. Global VS caches require explicit opt-in.
+
+## Related Ecosystems
+
+- [Java](/ecosystems/java) - Similar enterprise development patterns
+- [Xcode](/ecosystems/xcode) - .NET MAUI shares patterns with iOS development
+- [Node.js](/ecosystems/nodejs) - Blazor often integrates with npm

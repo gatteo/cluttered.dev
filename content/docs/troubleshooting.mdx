@@ -1,0 +1,208 @@
+---
+title: "Troubleshooting"
+description: "Solutions to common issues and how to get help with Cluttered."
+section: "Help"
+order: 7
+---
+
+## Common Issues
+
+### Cluttered won't open
+
+**Symptoms**: App bounces in dock then disappears, or nothing happens.
+
+**Solutions**:
+
+1. **Check macOS version**: Cluttered requires macOS 12 (Monterey) or later
+2. **Try right-click → Open**: Bypasses Gatekeeper for first launch
+3. **Check Console.app**: Look for crash logs under Cluttered
+4. **Reinstall**: Download fresh from [cluttered.dev/download](/download)
+
+### "App is damaged" warning
+
+This usually means Gatekeeper is blocking the app:
+
+```bash
+# Remove quarantine flag
+xattr -cr /Applications/Cluttered.app
+```
+
+Then try opening again.
+
+### Scan finds no projects
+
+**Possible causes**:
+
+1. **Wrong scan location**: Check Settings → Scan Locations
+2. **Projects are excluded**: Check Settings → Exclusions
+3. **Non-standard structure**: Projects need marker files (package.json, etc.)
+4. **Permission denied**: Cluttered needs access to those directories
+
+**Try this**:
+1. Add your project folder directly to scan locations
+2. Ensure no overly broad exclusions
+3. Check System Settings → Privacy → Full Disk Access
+
+### Scan is very slow
+
+**Normal scan times**:
+- 10-50 projects: 5-10 seconds
+- 50-200 projects: 10-30 seconds
+- 200+ projects: 30-60 seconds
+
+**If slower than expected**:
+
+1. **Exclude large directories**: Downloads, external drives
+2. **Check disk health**: Run `diskutil verifyVolume /`
+3. **Limit scan depth**: In Settings → Scan Locations
+4. **Close other disk-heavy apps**: Spotlight, backups
+
+### Space not recovered after cleaning
+
+**Check these**:
+
+1. **Trash not emptied**: Files are in Trash until you empty it
+2. **Finder not refreshed**: Press ⌘⇧. in Finder
+3. **System reporting delay**: Storage info can lag by minutes
+
+**Verify cleanup**:
+```bash
+# Check Trash size
+du -sh ~/.Trash
+
+# Check specific project
+du -sh ~/projects/my-project/node_modules
+```
+
+### Projects showing wrong activity status
+
+Activity detection uses:
+- Git commit history
+- File modification times
+- Running processes
+- VS Code workspace data
+
+**If incorrect**:
+
+1. **Git history missing**: Clone might not have full history
+2. **File times reset**: Some tools reset modification times
+3. **Process detection**: Make sure dev servers are running when scanning
+
+### License not recognized
+
+**Solutions**:
+
+1. **Re-enter license**: Settings → License → Enter License Key
+2. **Check internet**: License validation requires connectivity
+3. **Contact support**: [support@cluttered.dev](mailto:support@cluttered.dev)
+
+## Error Messages
+
+### "Permission denied"
+
+Cluttered needs access to scan directories.
+
+**Fix**:
+1. System Settings → Privacy & Security → Full Disk Access
+2. Add Cluttered to the list
+3. Restart Cluttered
+
+### "Could not move to Trash"
+
+The Trash might be full or permissions are wrong.
+
+**Fix**:
+```bash
+# Check Trash permissions
+ls -la ~/.Trash
+
+# Fix permissions if needed
+chmod 700 ~/.Trash
+```
+
+### "Project is currently in use"
+
+A running process is using files in that project.
+
+**Fix**:
+1. Stop dev servers (`npm run dev`, etc.)
+2. Close IDE windows for that project
+3. Wait a few seconds and retry
+
+## Getting Help
+
+### Built-in Help
+
+- **⌘?** opens help overlay
+- **Tooltips** on hover explain features
+- **Status bar** shows current operation
+
+### Online Resources
+
+- [Documentation](/docs) - Full guides
+- [GitHub Issues](https://github.com/gatteo/cluttered/issues) - Bug reports
+- [GitHub Discussions](https://github.com/gatteo/cluttered/discussions) - Questions
+
+### Contact Support
+
+For Pro users and billing questions:
+- Email: [support@cluttered.dev](mailto:support@cluttered.dev)
+- Response time: Within 24-48 hours
+
+### Reporting Bugs
+
+Include this information:
+
+1. **macOS version**: Apple menu → About This Mac
+2. **Cluttered version**: Cluttered → About Cluttered
+3. **Steps to reproduce**: What you did before the issue
+4. **Expected vs actual**: What should happen vs what did
+5. **Screenshots**: If visual issue
+6. **Console logs**: If crash (Console.app → Cluttered)
+
+## Diagnostic Information
+
+### Generate Diagnostic Report
+
+1. Open Cluttered
+2. Help → Generate Diagnostic Report
+3. Save the file
+4. Attach to support email
+
+This includes:
+- System information
+- Cluttered settings (no personal data)
+- Recent logs
+- Scan statistics
+
+### Manual Log Access
+
+```bash
+# View recent logs
+log show --predicate 'subsystem == "dev.cluttered"' --last 1h
+
+# Export to file
+log show --predicate 'subsystem == "dev.cluttered"' --last 24h > cluttered-logs.txt
+```
+
+## Reset Cluttered
+
+If all else fails, reset to factory state:
+
+### Soft Reset (keeps license)
+
+1. Settings → Reset to Defaults
+2. Restart Cluttered
+
+### Full Reset
+
+```bash
+# Remove all Cluttered data
+rm -rf ~/Library/Application\ Support/Cluttered
+rm -rf ~/Library/Preferences/dev.cluttered.plist
+rm -rf ~/Library/Caches/dev.cluttered
+
+# Then reinstall
+```
+
+**Note**: This removes your license. You'll need to re-enter it.

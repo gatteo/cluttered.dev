@@ -37,7 +37,7 @@ export default function DownloadPage() {
                   </div>
                   <p className="text-text-secondary mb-4">Download the latest version for macOS</p>
 
-                  <Link href={siteConfig.releases} target="_blank" rel="noopener noreferrer">
+                  <Link href={siteConfig.downloadMac} target="_blank" rel="noopener noreferrer">
                     <Button size="lg">
                       <Download className="w-5 h-5 mr-2" />
                       Download for Mac

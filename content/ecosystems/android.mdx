@@ -1,0 +1,80 @@
+---
+title: "Android"
+description: "Clean Gradle caches, build outputs, and Android SDK components. Reclaim space from your Android development environment."
+icon: "android"
+color: "#22C55E"
+artifacts:
+  - "build/"
+  - ".gradle/"
+  - "app/build/"
+  - ".idea/"
+  - "*.apk"
+  - "*.aab"
+detectionFiles:
+  - "build.gradle"
+  - "build.gradle.kts"
+  - "settings.gradle"
+  - "settings.gradle.kts"
+averageSize: "500MB - 5GB per project"
+order: 7
+---
+
+## Overview
+
+Android development is notorious for massive build directories. Between Gradle caches, build outputs, and the Android SDK, a single project can consume several gigabytes—and that's before considering multiple build variants.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| `build/` | Compiled outputs per module | 200MB - 2GB |
+| `.gradle/` | Gradle wrapper and cache | 100MB - 1GB |
+| Generated APKs/AABs | Build outputs | 50MB - 500MB |
+| Build cache | Incremental build data | 500MB - 3GB |
+
+## Why Android Builds Get Large
+
+Android projects accumulate space from:
+
+- **Build variants**: Debug, release, and flavors multiply outputs
+- **Gradle cache**: Downloaded dependencies and build cache
+- **Generated code**: Data binding, Room, Dagger/Hilt
+- **Resource processing**: Compiled resources for multiple densities
+
+## Safety Considerations
+
+Cluttered protects your Android projects by:
+
+- Detecting running Gradle daemons
+- Checking for active Android Studio processes
+- Identifying recently built variants
+- Preserving signed release builds
+
+## Gradle Cache Management
+
+The global Gradle cache (`~/.gradle`) is shared across projects. Cluttered helps you:
+
+- Identify unused cached dependencies
+- Clean old Gradle wrapper versions
+- Remove stale daemon logs
+- Clear build caches safely
+
+## Frequently Asked Questions
+
+**Will cleaning break my project?**
+
+No. Run `./gradlew build` to rebuild. All source code and configurations remain intact.
+
+**What about my signed APKs?**
+
+Cluttered warns before cleaning directories containing signed builds. You can exclude specific outputs.
+
+**Does it clean the Android SDK?**
+
+Cluttered can identify unused SDK components and emulator images in Pro mode.
+
+## Related Ecosystems
+
+- [Xcode](/ecosystems/xcode) - Similar mobile development patterns
+- [Java](/ecosystems/java) - Shared Gradle/Maven tooling
+- [Node.js](/ecosystems/nodejs) - React Native combines both ecosystems

@@ -5,7 +5,7 @@ export const siteConfig = {
   ogImage: '/og/og.png',
   twitter: '@mattegiardino',
   github: 'https://github.com/gatteo/cluttered',
-  releases: 'https://github.com/gatteo/cluttered/releases',
+  downloadMac: 'https://github.com/gatteo/cluttered/releases',
   creator: 'Matteo Giardino',
 }
 

@@ -1,0 +1,79 @@
+---
+title: "Docker"
+description: "Clean unused Docker images, containers, volumes, and build cache. Reclaim massive amounts of space from your container environment."
+icon: "docker"
+color: "#06B6D4"
+artifacts:
+  - "Docker images"
+  - "Docker containers"
+  - "Docker volumes"
+  - "Docker build cache"
+  - "Buildx cache"
+detectionFiles:
+  - "Dockerfile"
+  - "docker-compose.yml"
+  - "docker-compose.yaml"
+averageSize: "5GB - 50GB"
+order: 4
+---
+
+## Overview
+
+Docker is essential for modern development, but those images and layers accumulate fast. A typical development machine can have 20-50GB tied up in Docker data—much of it from old images you no longer use.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| Unused images | Images not referenced by containers | 5GB - 30GB |
+| Stopped containers | Containers that are no longer running | 100MB - 5GB |
+| Dangling images | Layers from failed or replaced builds | 1GB - 10GB |
+| Build cache | Cached layers from `docker build` | 2GB - 20GB |
+| Unused volumes | Volumes not attached to containers | 500MB - 10GB |
+
+## Why Docker Gets So Large
+
+Docker's layered architecture is great for efficiency, but it leads to accumulation:
+
+- **Image versions**: Every tag pulls new layers
+- **Build iterations**: Failed builds leave dangling images
+- **Base image updates**: Old versions aren't auto-removed
+- **Multi-platform builds**: Buildx caches for multiple architectures
+
+## Safety Considerations
+
+Cluttered protects your Docker environment by:
+
+- Only suggesting images not used by any container
+- Preserving running containers
+- Detecting commonly used base images
+- Warning about recently pulled images
+
+## Cluttered vs `docker system prune`
+
+| Feature | `docker system prune` | Cluttered |
+|---------|----------------------|-----------|
+| Interactive selection | No | Yes |
+| Preview before delete | Limited | Full preview |
+| Undo capability | No | Via Trash |
+| Smart detection | No | Yes |
+
+## Frequently Asked Questions
+
+**Will this affect my running containers?**
+
+No. Cluttered only cleans stopped containers and unused images. Running containers and their images are always preserved.
+
+**Can I recover deleted images?**
+
+Docker images are cleaned directly (not via Trash), but you can always `docker pull` them again. Cluttered warns you before cleaning Docker resources.
+
+**What about my docker-compose setups?**
+
+Cluttered detects docker-compose.yml files and protects images referenced in active project directories.
+
+## Related Ecosystems
+
+- [Node.js](/ecosystems/nodejs) - Often containerized for deployment
+- [Python](/ecosystems/python) - Common in data science containers
+- [Go](/ecosystems/go) - Popular for building minimal Docker images

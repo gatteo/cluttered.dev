@@ -1,0 +1,89 @@
+---
+title: "Java"
+description: "Clean Maven and Gradle build outputs, target directories, and IDE artifacts. Supports Spring Boot, Micronaut, and Quarkus."
+icon: "java"
+color: "#F97316"
+artifacts:
+  - "target/"
+  - "build/"
+  - ".gradle/"
+  - "out/"
+  - ".idea/"
+  - "*.jar"
+  - "*.war"
+detectionFiles:
+  - "pom.xml"
+  - "build.gradle"
+  - "build.gradle.kts"
+averageSize: "200MB - 2GB per project"
+order: 10
+---
+
+## Overview
+
+Java projects generate substantial build artifacts. Between Maven's target directories, Gradle's build outputs, and IDE-generated files, a single project can easily consume gigabytes of space.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| `target/` | Maven build output | 100MB - 1GB |
+| `build/` | Gradle build output | 100MB - 1GB |
+| `.gradle/` | Gradle cache and wrapper | 50MB - 500MB |
+| `out/` | IntelliJ IDEA output | 50MB - 500MB |
+| `.idea/` | IDE configuration | 10MB - 100MB |
+
+## Why Java Builds Get Large
+
+Java projects accumulate space from:
+
+- **Compiled classes**: Every .java becomes .class files
+- **Fat JARs**: Spring Boot bundles all dependencies
+- **Multi-module projects**: Each module has its own target/build
+- **Test outputs**: Compiled tests and reports
+
+## Build Tool Support
+
+| Tool | Detection | Clean Support |
+|------|-----------|---------------|
+| Maven | pom.xml | Full |
+| Gradle | build.gradle | Full |
+| Ant | build.xml | Partial |
+| Bazel | BUILD | Partial |
+
+## Safety Considerations
+
+Cluttered protects your Java projects by:
+
+- Detecting running JVM processes in project directories
+- Checking for active Maven/Gradle builds
+- Identifying recently modified source files
+- Preserving release artifacts in designated directories
+
+## Maven vs Gradle Cleanup
+
+| Action | Maven | Gradle | Cluttered |
+|--------|-------|--------|-----------|
+| Clean build | `mvn clean` | `gradle clean` | One-click |
+| Preserve deps | Not possible | Not possible | Yes |
+| Multi-module | Per-module | Per-module | All at once |
+
+## Frequently Asked Questions
+
+**Will cleaning break my project?**
+
+No. Run `mvn compile` or `gradle build` to rebuild. Source code is never touched.
+
+**What about my local Maven repository?**
+
+The `~/.m2/repository` is a shared cache. Cluttered Pro can analyze and clean unused dependencies.
+
+**Does it clean IntelliJ caches?**
+
+Project-level `.idea` and `out` directories can be cleaned. Global IDE caches require explicit opt-in.
+
+## Related Ecosystems
+
+- [Android](/ecosystems/android) - Uses Gradle for builds
+- [Rust](/ecosystems/rust) - Similar compiled language patterns
+- [Go](/ecosystems/go) - Also produces large binaries

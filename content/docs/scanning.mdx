@@ -1,0 +1,125 @@
+---
+title: "Scanning"
+description: "Learn how Cluttered scans your filesystem and detects development projects."
+section: "Core Concepts"
+order: 3
+---
+
+## How Scanning Works
+
+When you click "Scan," Cluttered traverses your selected directories looking for development projects. It uses intelligent detection to identify projects across 12+ ecosystems.
+
+## What Gets Scanned
+
+By default, Cluttered scans your home directory, focusing on common development locations:
+
+- `~/Developer`
+- `~/Projects`
+- `~/Code`
+- `~/Sites`
+- `~/Desktop` (for quick projects)
+- `~/Documents` (for work projects)
+
+### Custom Scan Paths
+
+You can configure which directories to scan:
+
+1. Open **Settings** (⌘,)
+2. Go to **Scan Locations**
+3. Add or remove directories
+
+## Project Detection
+
+Cluttered identifies projects by looking for ecosystem-specific marker files:
+
+| Ecosystem | Detection Files |
+|-----------|----------------|
+| Node.js | `package.json` |
+| Rust | `Cargo.toml` |
+| Python | `requirements.txt`, `pyproject.toml` |
+| Xcode | `*.xcodeproj`, `*.xcworkspace` |
+| Go | `go.mod` |
+| Java | `pom.xml`, `build.gradle` |
+
+When a marker file is found, Cluttered catalogs the project and calculates the size of cleanable artifacts.
+
+## Scan Results
+
+After scanning, you'll see:
+
+### Project Cards
+
+Each detected project shows:
+
+- **Name and path**: Where the project lives
+- **Activity indicator**: Green (active), yellow (idle), red (dormant)
+- **Reclaimable space**: Total size of cleanable artifacts
+- **Ecosystem icons**: Which ecosystems are detected
+
+### Activity Detection
+
+Cluttered determines project activity by checking:
+
+1. **Git history**: Recent commits in the repository
+2. **File modifications**: Changes to source files
+3. **Process detection**: Running dev servers or builds
+4. **IDE markers**: VS Code workspace activity
+
+### Artifact Breakdown
+
+Click on a project to see:
+
+- Individual artifact sizes (`node_modules`: 450MB, `.next`: 120MB)
+- Last modification date per artifact
+- Safety recommendations
+
+## Scan Performance
+
+Typical scan times:
+
+| Projects | Approximate Time |
+|----------|-----------------|
+| 10-50 | 5-10 seconds |
+| 50-200 | 10-30 seconds |
+| 200+ | 30-60 seconds |
+
+### Improving Scan Speed
+
+- Exclude large non-project directories (like Downloads)
+- Limit scan depth if you have deeply nested projects
+- Use an SSD for faster filesystem access
+
+## Excluding Directories
+
+Some directories should never be scanned:
+
+- System directories (`/System`, `/Library`)
+- Application bundles (`*.app`)
+- Backup directories (Time Machine)
+
+Cluttered excludes these automatically, but you can add custom exclusions in Settings.
+
+## Troubleshooting Scans
+
+### "No projects found"
+
+Check that:
+- Your scan paths include development directories
+- You have projects with recognizable marker files
+- Excluded directories aren't too broad
+
+### Scan seems stuck
+
+Large directories with millions of files can slow scanning. Try:
+- Excluding your Downloads folder
+- Limiting scan to specific project directories
+- Checking for permission issues
+
+### Missing projects
+
+Some projects might not be detected if:
+- They use non-standard project structures
+- Marker files are missing or renamed
+- The ecosystem isn't yet supported
+
+[Request a new ecosystem](https://github.com/gatteo/cluttered/issues) if yours is missing.

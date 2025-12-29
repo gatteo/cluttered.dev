@@ -1,0 +1,78 @@
+---
+title: "Ruby"
+description: "Clean Bundler gems, vendor directories, and Rails caches. Supports Rails, Sinatra, and Jekyll projects."
+icon: "ruby"
+color: "#EF4444"
+artifacts:
+  - "vendor/bundle/"
+  - "vendor/cache/"
+  - ".bundle/"
+  - "tmp/cache/"
+  - "log/"
+  - "coverage/"
+detectionFiles:
+  - "Gemfile"
+  - "Gemfile.lock"
+averageSize: "100MB - 1GB per project"
+order: 8
+---
+
+## Overview
+
+Ruby projects, especially Rails applications, accumulate gem dependencies, caches, and logs over time. A mature Rails app can have hundreds of megabytes in vendor directories alone.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| `vendor/bundle/` | Bundled gem dependencies | 100MB - 800MB |
+| `tmp/cache/` | Rails cache files | 10MB - 500MB |
+| `log/` | Development and test logs | 10MB - 1GB |
+| `coverage/` | Test coverage reports | 5MB - 50MB |
+| `.bundle/` | Bundler configuration cache | 5MB - 20MB |
+
+## Why Ruby Projects Get Large
+
+Ruby projects accumulate space from:
+
+- **Native extensions**: Compiled C extensions in gems
+- **Asset pipeline**: Compiled and cached assets
+- **Development logs**: Can grow unbounded
+- **Test artifacts**: Coverage reports, screenshots
+
+## Safety Considerations
+
+Cluttered protects your Ruby projects by:
+
+- Detecting running Rails servers
+- Checking for active Sidekiq processes
+- Identifying recent Gemfile.lock changes
+- Preserving production-configured directories
+
+## Rails-Specific Cleanup
+
+| Artifact | Rails Command | Cluttered |
+|----------|--------------|-----------|
+| Logs | `rails log:clear` | Visual selection |
+| Tmp files | `rails tmp:clear` | One-click |
+| Assets | `rails assets:clobber` | Included |
+
+## Frequently Asked Questions
+
+**Will cleaning vendor/bundle break my app?**
+
+No. Run `bundle install` to restore gems. Your Gemfile.lock ensures exact versions.
+
+**What about the global gem directory?**
+
+Cluttered focuses on project-local vendor directories. Global gem cleanup is available in Pro.
+
+**Does it clean .rbenv or .rvm?**
+
+These are treated as system directories and require explicit opt-in.
+
+## Related Ecosystems
+
+- [Node.js](/ecosystems/nodejs) - Similar bundler patterns
+- [Python](/ecosystems/python) - Virtual environment concept is similar
+- [PHP](/ecosystems/php) - Composer follows similar patterns

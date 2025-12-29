@@ -1,0 +1,84 @@
+---
+title: "Elixir"
+description: "Clean Mix build artifacts, deps directories, and compiled BEAM files. Supports Phoenix and Nerves projects."
+icon: "elixir"
+color: "#A855F7"
+artifacts:
+  - "_build/"
+  - "deps/"
+  - ".elixir_ls/"
+  - "cover/"
+  - "priv/static/assets/"
+detectionFiles:
+  - "mix.exs"
+  - "mix.lock"
+averageSize: "100MB - 1GB per project"
+order: 11
+---
+
+## Overview
+
+Elixir projects using Mix accumulate compiled BEAM bytecode, dependencies, and build artifacts. Phoenix projects additionally cache compiled assets and generated files.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| `_build/` | Compiled BEAM files | 50MB - 500MB |
+| `deps/` | Hex dependencies | 50MB - 400MB |
+| `.elixir_ls/` | ElixirLS language server cache | 10MB - 100MB |
+| Asset cache | Phoenix compiled assets | 10MB - 100MB |
+
+## Why Elixir Projects Get Large
+
+Elixir projects accumulate space from:
+
+- **Multiple build profiles**: dev, test, prod each have separate builds
+- **Dependency compilation**: Every dep is compiled for your environment
+- **Native extensions**: NIFs compile C/Rust code
+- **Umbrella projects**: Each app has its own _build and deps
+
+## Safety Considerations
+
+Cluttered protects your Elixir projects by:
+
+- Detecting running IEx sessions
+- Checking for active Phoenix servers
+- Identifying running supervision trees
+- Preserving release artifacts
+
+## Mix Commands Comparison
+
+| Action | Mix Command | Cluttered |
+|--------|------------|-----------|
+| Clean build | `mix clean` | Visual selection |
+| Clean deps | `mix deps.clean --all` | One-click |
+| Full reset | Manual | All at once |
+
+## Phoenix-Specific Cleanup
+
+Phoenix projects have additional artifacts:
+
+- **Asset cache**: Compiled esbuild/tailwind output
+- **Generated files**: Gettext, migrations
+- **Upload directories**: User-uploaded content (preserved by default)
+
+## Frequently Asked Questions
+
+**Will cleaning break my project?**
+
+No. Run `mix deps.get && mix compile` to restore everything.
+
+**What about my releases?**
+
+Cluttered preserves `_build/prod/rel` by default. Release artifacts are protected.
+
+**Does it handle umbrella projects?**
+
+Yes! Cluttered detects umbrella structures and shows each app separately.
+
+## Related Ecosystems
+
+- [Ruby](/ecosystems/ruby) - Mix is inspired by Bundler
+- [Node.js](/ecosystems/nodejs) - Phoenix often uses npm for assets
+- [Rust](/ecosystems/rust) - Rustler NIFs compile Rust code

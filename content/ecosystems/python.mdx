@@ -1,0 +1,86 @@
+---
+title: "Python"
+description: "Clean virtual environments, __pycache__, .pytest_cache, and other Python artifacts. Supports venv, virtualenv, conda, and poetry."
+icon: "python"
+color: "#EAB308"
+artifacts:
+  - "venv/"
+  - ".venv/"
+  - "__pycache__/"
+  - ".pytest_cache/"
+  - ".mypy_cache/"
+  - ".ruff_cache/"
+  - "*.egg-info/"
+  - "dist/"
+  - "build/"
+detectionFiles:
+  - "requirements.txt"
+  - "pyproject.toml"
+  - "setup.py"
+  - "Pipfile"
+averageSize: "200MB - 2GB per project"
+order: 5
+---
+
+## Overview
+
+Python projects accumulate virtual environments and cache directories quickly. A single data science project with numpy, pandas, and machine learning libraries can have a virtual environment exceeding 2GB.
+
+## What Cluttered Cleans
+
+| Artifact | Description | Typical Size |
+|----------|-------------|--------------|
+| `venv/` / `.venv/` | Virtual environment directories | 200MB - 3GB |
+| `__pycache__/` | Compiled Python bytecode | 10MB - 100MB |
+| `.pytest_cache/` | pytest result cache | 5MB - 50MB |
+| `.mypy_cache/` | Type checking cache | 10MB - 200MB |
+| `*.egg-info/` | Package metadata | 1MB - 10MB |
+
+## Why Virtual Environments Get Large
+
+Python virtual environments contain:
+
+- Complete copies of packages (not symlinks)
+- Compiled C extensions (numpy, pandas)
+- Multiple versions of dependencies
+- Platform-specific binaries
+
+A data science stack (numpy, pandas, scikit-learn, tensorflow) can easily exceed 2GB.
+
+## Safety Considerations
+
+Cluttered protects your Python projects by:
+
+- Detecting active Jupyter notebook sessions
+- Checking for running Python processes
+- Identifying recently modified .py files
+- Respecting Poetry and Pipenv lockfiles
+
+## Package Manager Support
+
+| Manager | Detection | Clean Support |
+|---------|-----------|---------------|
+| pip + venv | requirements.txt | Full |
+| Poetry | pyproject.toml | Full |
+| Pipenv | Pipfile | Full |
+| Conda | environment.yml | Partial |
+
+## Frequently Asked Questions
+
+**Will cleaning break my project?**
+
+No! Your source code and dependency specifications (requirements.txt, pyproject.toml) are never touched. Just run `pip install -r requirements.txt` to restore.
+
+**What about conda environments?**
+
+Cluttered detects conda environments but handles them carefully since they can be shared across projects.
+
+**Does it clean the global pip cache?**
+
+By default, Cluttered focuses on project-local artifacts. Global pip cache cleaning is available in Pro.
+
+## Related Ecosystems
+
+- [Node.js](/ecosystems/nodejs) - Similar dependency isolation patterns
+- [Ruby](/ecosystems/ruby) - Bundler's vendor/bundle is similar
+- [Docker](/ecosystems/docker) - Often used for Python deployments

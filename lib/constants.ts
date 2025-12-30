@@ -35,6 +35,7 @@ export const navigation = {
       { name: 'GitHub', href: 'https://github.com/gatteo/cluttered' },
       { name: 'Privacy', href: '/privacy' },
       { name: 'Terms', href: '/terms' },
+      { name: 'Refund Policy', href: '/refund' },
     ],
   },
 }

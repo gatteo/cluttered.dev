@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   },
 
   trailingSlash: true,
+  skipTrailingSlashRedirect: true,
 }
 
 export default withContentlayer(nextConfig)

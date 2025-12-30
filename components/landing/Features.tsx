@@ -1,6 +1,6 @@
 'use client'
 
-import { Scan, Shield, Zap, Trash2, Eye, Settings, Bell, BarChart3 } from 'lucide-react'
+import { Scan, Shield, Zap, Trash2, Eye, Clock, Bell, Infinity } from 'lucide-react'
 import { Section, Container, SectionHeader, Card, FadeIn, BackgroundDots } from '@/components/ui'
 
 const features = [
@@ -29,27 +29,27 @@ const features = [
     badge: 'Core',
   },
   {
-    icon: Bell,
-    title: 'Smart Notifications',
-    description: 'Get notified when cleanup opportunities arise. Never run out of space again.',
+    icon: Infinity,
+    title: 'Unlimited Cleanup',
+    description: 'No weekly limits. Clean as much as you want, whenever you want.',
     badge: 'Pro',
   },
   {
-    icon: BarChart3,
-    title: 'Space Analytics',
-    description: 'Track your cleanup history and see trends in disk space usage over time.',
-    badge: 'Pro',
-  },
-  {
-    icon: Settings,
+    icon: Clock,
     title: 'Scheduled Scans',
-    description: 'Set up automatic scans to run daily, weekly, or on a custom schedule.',
+    description: 'Set up automatic scans to run daily, weekly, or monthly.',
     badge: 'Pro',
   },
   {
     icon: Zap,
-    title: 'One-Click Clean',
-    description: 'Review and clean all safe-to-delete artifacts with a single click.',
+    title: 'Auto-Clean Dormant',
+    description: 'Automatically clean projects untouched for 90+ days. Set it and forget it.',
+    badge: 'Pro',
+  },
+  {
+    icon: Bell,
+    title: 'Smart Notifications',
+    description: 'Get notified when cleanable space exceeds your threshold.',
     badge: 'Pro',
   },
 ]

@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { Scan, Trash2, Eye, Bell, BarChart3, GitBranch, HardDrive, Timer, Lock } from 'lucide-react'
+import { Scan, Trash2, Eye, Bell, GitBranch, HardDrive, Clock, Lock, Infinity, Zap } from 'lucide-react'
 import { Section, Container, SectionHeader, FadeIn, Button } from '@/components/ui'
 import Link from 'next/link'
 
@@ -50,22 +50,22 @@ const features = [
     ],
   },
   {
-    category: 'Automation (Pro)',
+    category: 'Pro Features',
     items: [
       {
-        icon: Timer,
+        icon: Infinity,
+        title: 'Unlimited Cleanup',
+        description: 'No 20 GB weekly limit. Clean as much as you want, whenever you want.',
+      },
+      {
+        icon: Clock,
         title: 'Scheduled Scans',
-        description: 'Set up automatic scans on a schedule. Daily, weekly, or custom intervals.',
+        description: 'Set up automatic scans to run daily, weekly, or monthly. Get notified when space exceeds your threshold.',
       },
       {
-        icon: Bell,
-        title: 'Smart Notifications',
-        description: 'Get notified when significant cleanup opportunities are found. Never run out of space again.',
-      },
-      {
-        icon: BarChart3,
-        title: 'Space Analytics',
-        description: 'Track your cleanup history over time. See trends and understand where your space goes.',
+        icon: Zap,
+        title: 'Auto-Clean Dormant',
+        description: 'Automatically clean projects untouched for 90+ days. True set-it-and-forget-it automation.',
       },
     ],
   },

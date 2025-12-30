@@ -23,7 +23,12 @@ export const faqs = [
       'Most developers recover 20-100GB on their first scan. The average is about 47GB. It depends on how many projects you have and how long since your last cleanup.',
   },
   {
-    question: 'Is there a trial for Pro?',
-    answer: 'Yes! Pro features come with a 14-day free trial. No credit card required.',
+    question: 'What is the 20 GB weekly limit?',
+    answer:
+      'The free version lets you clean up to 20 GB per week. This resets every 7 days. Pro removes this limit entirely, letting you clean unlimited space.',
+  },
+  {
+    question: 'Is Pro a subscription?',
+    answer: 'No, Pro is a one-time purchase of $29. Pay once, use forever. No recurring fees.',
   },
 ]

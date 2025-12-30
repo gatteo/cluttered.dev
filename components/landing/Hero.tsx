@@ -103,7 +103,7 @@ export function Hero() {
             </motion.div>
 
             {/* Stats */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: 0.15 }}
@@ -125,7 +125,7 @@ export function Hero() {
                 <p className="text-3xl font-bold text-text-primary">100%</p>
                 <p className="text-sm">Safe & reversible</p>
               </div>
-            </motion.div>
+            </motion.div> */}
           </div>
 
           {/* Right side - Icon grid */}

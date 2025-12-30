@@ -39,7 +39,9 @@ export function generateLicenseKey(): string {
     segments.push(segment)
   }
 
-  return `CLUT-S${segments.join('-')}`
+  const key = `CLUT-S${segments.join('-')}`
+  console.log('[Stripe] Generated license key:', key)
+  return key
 }
 
 /**
@@ -48,33 +50,47 @@ export function generateLicenseKey(): string {
 export async function validateLicenseKey(
   key: string
 ): Promise<{ valid: boolean; email?: string; error?: string }> {
+  console.log('[Stripe Validate] Starting validation for key:', key)
+
   if (!key.startsWith('CLUT-S')) {
+    console.log('[Stripe Validate] Invalid key format')
     return { valid: false, error: 'Invalid key format' }
   }
 
   try {
     // Search for payments with this license key in metadata
+    const searchQuery = `metadata["license_key"]:"${key}"`
+    console.log('[Stripe Validate] Search query:', searchQuery)
+
     const payments = await stripe.paymentIntents.search({
-      query: `metadata["license_key"]:"${key}"`,
+      query: searchQuery,
       limit: 1,
     })
 
+    console.log('[Stripe Validate] Search results count:', payments.data.length)
+
     if (payments.data.length === 0) {
+      console.log('[Stripe Validate] No payment found with this license key')
       return { valid: false, error: 'License key not found' }
     }
 
     const payment = payments.data[0]
+    console.log('[Stripe Validate] Found payment:', payment.id)
+    console.log('[Stripe Validate] Payment status:', payment.status)
+    console.log('[Stripe Validate] Payment metadata:', JSON.stringify(payment.metadata))
 
     if (payment.status !== 'succeeded') {
+      console.log('[Stripe Validate] Payment not succeeded')
       return { valid: false, error: 'Payment not completed' }
     }
 
+    console.log('[Stripe Validate] License is valid!')
     return {
       valid: true,
       email: payment.metadata.customer_email || undefined,
     }
   } catch (error) {
-    console.error('[Stripe] License validation error:', error)
+    console.error('[Stripe Validate] ERROR:', error)
     return { valid: false, error: 'Validation failed' }
   }
 }

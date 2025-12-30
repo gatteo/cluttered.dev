@@ -41,15 +41,15 @@ export function Hero() {
           {/* Left side - Text content */}
           <div className="flex-1 lg:max-w-2xl">
             {/* Logo Icon */}
-            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }} className="mb-8">
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }} className="mb-8">
               <Image src="/icons/logo.png" alt="Cluttered" width={80} height={80} className="w-20 h-20" priority />
             </motion.div>
 
             {/* Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.05 }}
+              transition={{ duration: 0.2, delay: 0.03 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-elevated border border-accent-purple/30 text-accent-purple text-sm mb-8 backdrop-blur-sm"
             >
               <span className="relative flex h-2 w-2">
@@ -61,9 +61,9 @@ export function Hero() {
 
             {/* Headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
+              transition={{ duration: 0.2, delay: 0.06 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-text-primary mb-6 tracking-tight"
             >
               The <span className="text-gradient-purple">Satisfying</span>
@@ -73,9 +73,9 @@ export function Hero() {
 
             {/* Subheadline */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.15 }}
+              transition={{ duration: 0.2, delay: 0.09 }}
               className="text-lg sm:text-xl text-text-secondary max-w-xl mb-8"
             >
               Clean node modules, build artifacts, Docker images, and more. Reclaim gigabytes of disk space with one click.
@@ -83,9 +83,9 @@ export function Hero() {
 
             {/* CTAs */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.2 }}
+              transition={{ duration: 0.2, delay: 0.12 }}
               className="flex flex-col sm:flex-row items-start gap-4 mb-10"
             >
               <Link href="/download">
@@ -104,9 +104,9 @@ export function Hero() {
 
             {/* Stats */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.25 }}
+              transition={{ duration: 0.2, delay: 0.15 }}
               className="flex flex-wrap items-center gap-8 text-text-secondary"
             >
               <div>
@@ -157,8 +157,8 @@ export function Hero() {
                       scale: 1,
                     }}
                     transition={{
-                      opacity: { duration: 0.6, delay: icon.delay + 0.3 },
-                      scale: { duration: 0.6, delay: icon.delay + 0.3 },
+                      opacity: { duration: 0.3, delay: icon.delay + 0.15 },
+                      scale: { duration: 0.3, delay: icon.delay + 0.15 },
                     }}
                   >
                     <Image
@@ -181,9 +181,9 @@ export function Hero() {
 
         {/* App Screenshot */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
+          transition={{ duration: 0.25, delay: 0.18 }}
           className="mt-20 max-w-5xl mx-auto"
         >
           <div className="glass-card-elevated p-2 rounded-2xl">

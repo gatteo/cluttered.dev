@@ -5,13 +5,16 @@ import { Check } from 'lucide-react'
 import { Section, Container, SectionHeader, Card, Button, FadeIn, BackgroundGrid } from '@/components/ui'
 import { pricingPlans } from '@/lib/constants'
 
-export function Pricing() {
+interface PricingProps {
+  showHeader?: boolean
+}
+
+export function Pricing({ showHeader = true }: PricingProps) {
   return (
     <Section id="pricing" className="relative overflow-hidden">
       <BackgroundGrid size={70} opacity="subtle" maskPosition="top" />
       <Container>
-        <SectionHeader title="Simple, Developer-Friendly Pricing" description="Start free, upgrade when you need automation" />
-
+        {showHeader && <SectionHeader title="Simple, Transparent Pricing" description="Start free, upgrade when you need automation" />}
         <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {pricingPlans.map((plan, index) => (
             <FadeIn key={plan.name} delay={index * 0.1}>

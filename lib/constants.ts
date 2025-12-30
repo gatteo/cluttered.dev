@@ -86,7 +86,7 @@ export const pricingPlans = [
       'Priority support',
     ],
     cta: 'Get Pro',
-    href: '/download?plan=pro',
+    href: '/checkout/stripe',
     popular: true,
   },
 ]

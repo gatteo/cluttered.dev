@@ -23,7 +23,7 @@ export default function PricingPage() {
         </Container>
       </Section>
 
-      <Pricing />
+      <Pricing showHeader={false} />
       <FAQSection />
     </>
   )

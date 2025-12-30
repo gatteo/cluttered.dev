@@ -1,9 +1,8 @@
 import { Metadata } from 'next'
-import { Section, Container, FadeIn, Button } from '@/components/ui'
-import { CheckCircle, Copy, Download } from 'lucide-react'
+import { Section, Container, FadeIn, Button, CopyButton } from '@/components/ui'
+import { CheckCircle, Download } from 'lucide-react'
 import { getSessionDetails } from '@/app/actions/stripe'
 import Link from 'next/link'
-import { CopyButton } from './CopyButton'
 
 export const metadata: Metadata = {
   title: 'Purchase Successful',

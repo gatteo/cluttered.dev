@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Download Cluttered for macOS. The satisfying disk cleaner for developers.',
 }
 
-const systemRequirements = ['macOS 12 (Monterey) or later', 'Apple Silicon or Intel processor', '50 MB disk space', 'No admin privileges required']
+const systemRequirements = ['macOS 12 (Monterey) or later', 'Apple Silicon or Intel processor', 'No admin privileges required']
 
 export default function DownloadPage() {
   return (
@@ -19,7 +19,7 @@ export default function DownloadPage() {
           <div className="text-center mb-12">
             <FadeIn>
               <Badge variant="success" className="mb-4">
-                Latest: v1.0.1
+                Latest: v1.1.0
               </Badge>
               <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">Download Cluttered</h1>
               <p className="text-xl text-text-secondary">Reclaim your disk space in minutes. Free to download.</p>

@@ -8,7 +8,7 @@ export function SoftwareJsonLd() {
     description: siteConfig.description,
     url: siteConfig.url,
     downloadUrl: `${siteConfig.url}/download`,
-    softwareVersion: '1.0.1',
+    softwareVersion: '1.1.0',
     applicationCategory: 'DeveloperApplication',
     operatingSystem: 'macOS',
     offers: [

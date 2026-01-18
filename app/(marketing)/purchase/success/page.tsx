@@ -43,9 +43,7 @@ export default async function PurchaseSuccessPage({ searchParams }: Props) {
             <p className="text-text-secondary mb-4">
               Your payment is being processed. Your license key will be sent to <strong>{email}</strong> shortly.
             </p>
-            <p className="text-text-muted text-sm mb-8">
-              If you don&apos;t receive it within a few minutes, please contact support@cluttered.dev
-            </p>
+            <p className="text-text-muted text-sm mb-8">If you don&apos;t receive it within a few minutes, please contact support@cluttered.dev</p>
             <Link href="/download">
               <Button>Download Cluttered</Button>
             </Link>
@@ -64,9 +62,7 @@ export default async function PurchaseSuccessPage({ searchParams }: Props) {
           </div>
 
           <h1 className="text-3xl font-bold text-text-primary mb-4">Thank You for Your Purchase!</h1>
-          <p className="text-text-secondary mb-8">
-            Welcome to Cluttered Pro. Your license key is below — save it somewhere safe.
-          </p>
+          <p className="text-text-secondary mb-8">Welcome to Cluttered Pro. Your license key is below — save it somewhere safe.</p>
 
           <div className="bg-surface-elevated rounded-xl p-6 mb-8">
             <p className="text-text-muted text-sm mb-2">Your License Key</p>

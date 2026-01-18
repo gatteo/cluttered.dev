@@ -1,0 +1,331 @@
+---
+title: "Xcode DerivedData: Where It Is, What It Does, and How to Delete It"
+description: "Complete guide to Xcode DerivedData. Learn where it's located, why it grows to 30-50GB, how to safely delete it, and fix common Xcode issues by clearing cache."
+date: 2025-12-21
+author: "Cluttered Team"
+category: "Tutorial"
+tags: ["xcode derived data", "delete derived data", "xcode cache", "xcode clean", "ios development", "macos development", "xcode disk space"]
+featured: true
+keywords: ["xcode deriveddata", "xcode derived data location", "delete derived data xcode", "clear xcode cache", "xcode deriveddata location mac", "xcode clean derived data", "xcode taking up space"]
+---
+
+Xcode's DerivedData folder grows silently in the background, often consuming 30-50GB or more. If you're an iOS or macOS developer wondering where your disk space went, DerivedData is likely the culprit.
+
+This guide covers everything about DerivedData: where it is, what it contains, and how to safely delete it.
+
+## Where Is Xcode DerivedData Located?
+
+DerivedData lives at:
+
+```
+~/Library/Developer/Xcode/DerivedData/
+```
+
+To open in Finder:
+
+```bash
+open ~/Library/Developer/Xcode/DerivedData
+```
+
+Or through Xcode:
+1. **Xcode → Settings** (⌘,)
+2. **Locations** tab
+3. Click the arrow next to DerivedData path
+
+## What Is Inside DerivedData?
+
+```
+DerivedData/
+├── MyApp-abcdefghijklm/        # Per-project folder
+│   ├── Build/
+│   │   ├── Intermediates.noindex/
+│   │   └── Products/
+│   ├── Index/
+│   ├── Logs/
+│   └── TextIndex/
+├── AnotherProject-xyz123/
+├── ModuleCache.noindex/         # Shared Swift modules
+└── SymbolCache.noindex/         # Debug symbols
+```
+
+### Per-Project Contents
+
+| Folder | Contents | Size Impact |
+|--------|----------|-------------|
+| Build/Products/ | Compiled apps, frameworks | Large |
+| Build/Intermediates/ | Object files, partial builds | Very large |
+| Index/ | Code completion, search index | Medium |
+| Logs/ | Build and test logs | Small |
+
+### Shared Caches
+
+| Folder | Contents |
+|--------|----------|
+| ModuleCache.noindex | Precompiled Swift modules |
+| SymbolCache.noindex | Debug symbols for crash logs |
+
+## Why Does Xcode DerivedData Get So Large?
+
+### 1. Multiple Build Configurations
+
+Each combination creates separate artifacts:
+- Debug + iPhone 14 Simulator
+- Debug + iPhone 15 Pro Simulator
+- Release + Any iOS Device
+- Debug + My iPhone
+
+Four destinations = 4x the build products.
+
+### 2. SwiftUI Previews
+
+Every SwiftUI preview generates its own build. Heavy preview usage creates significant overhead.
+
+### 3. Swift Module Cache
+
+Swift caches compiled modules across projects. This cache grows with:
+- Number of dependencies
+- Swift version changes
+- Xcode updates
+
+### 4. Index Data
+
+Xcode maintains searchable indexes for autocomplete and navigation. Large codebases = large indexes.
+
+## Typical Xcode DerivedData Sizes
+
+| Project Type | Single Project | Multiple Projects |
+|--------------|----------------|-------------------|
+| Small app | 500MB - 2GB | - |
+| Medium app | 2GB - 5GB | - |
+| Large/Enterprise | 5GB - 15GB | - |
+| All projects | - | 20GB - 50GB+ |
+
+iOS developers commonly have **30-50GB** in DerivedData.
+
+## How to Delete Xcode DerivedData
+
+### Method 1: Delete via Finder
+
+```bash
+rm -rf ~/Library/Developer/Xcode/DerivedData/*
+```
+
+Or open in Finder and delete:
+
+```bash
+open ~/Library/Developer/Xcode/DerivedData
+```
+
+### Method 2: Delete Specific Project
+
+```bash
+# Find your project's folder
+ls ~/Library/Developer/Xcode/DerivedData/ | grep "MyApp"
+
+# Delete it
+rm -rf ~/Library/Developer/Xcode/DerivedData/MyApp-*
+```
+
+### Method 3: Via Xcode Menu
+
+1. **Product → Clean Build Folder** (⌘⇧K)
+
+Note: This only cleans the current project's build products, not the entire DerivedData folder.
+
+### Method 4: Via Xcode Settings
+
+1. Xcode → Settings (⌘,)
+2. Locations tab
+3. Click arrow next to DerivedData path
+4. Delete folders in Finder
+
+### Method 5: Using Cluttered
+
+[Cluttered](/download) provides visual DerivedData cleanup:
+
+1. See all Xcode projects with DerivedData
+2. View size per project
+3. Identify active vs dormant projects
+4. Clean multiple projects at once
+5. Trash-first deletion for safety
+
+<DownloadBanner variant="compact" title="Clean DerivedData the smart way" subtitle="Cluttered identifies dormant Xcode projects automatically." />
+
+## Is It Safe to Delete Xcode DerivedData?
+
+**Yes, always safe.** DerivedData contains only generated files. Xcode recreates everything on your next build.
+
+### What Happens After Deletion
+
+| What You Lose | How It's Restored |
+|---------------|-------------------|
+| Build products | Next build regenerates |
+| Code index | Re-indexed on project open |
+| Preview cache | Regenerated when previewing |
+| Module cache | Recompiled from source |
+
+### Symptoms That Deleting Fixes
+
+Clear DerivedData when you experience:
+
+- ❌ "Command SwiftCompile failed"
+- ❌ Autocomplete not working
+- ❌ Indexing stuck at percentage
+- ❌ SwiftUI previews failing
+- ❌ "Module not found" for existing modules
+- ❌ Mysterious build errors after Xcode update
+
+Many Xcode issues resolve after clearing DerivedData.
+
+## Other Xcode Caches to Clean
+
+### iOS Device Support
+
+```
+~/Library/Developer/Xcode/iOS DeviceSupport/
+```
+
+Contains debug symbols for each iOS version you've connected. Can be 2-5GB per version.
+
+**Safe to clean**: Versions you no longer test on.
+
+```bash
+# Check size
+du -sh ~/Library/Developer/Xcode/iOS\ DeviceSupport/*
+
+# Delete old versions (e.g., iOS 15.x when you only need 17+)
+rm -rf ~/Library/Developer/Xcode/iOS\ DeviceSupport/15.*
+```
+
+### Archives
+
+```
+~/Library/Developer/Xcode/Archives/
+```
+
+Every App Store submission creates an archive. Each can be 1-5GB.
+
+**Careful**: Archives can't be regenerated. Only delete if you're certain you won't need them for debugging or re-submission.
+
+### Simulators
+
+```
+~/Library/Developer/CoreSimulator/Devices/
+```
+
+Each simulator has its own disk image with installed apps.
+
+```bash
+# List simulators
+xcrun simctl list
+
+# Delete unavailable simulators
+xcrun simctl delete unavailable
+```
+
+## Total Xcode Disk Space Usage
+
+| Location | Typical Size | Safe to Delete? |
+|----------|--------------|-----------------|
+| DerivedData | 20-50GB | ✅ Yes |
+| iOS DeviceSupport | 10-30GB | ✅ Old versions |
+| Archives | 5-30GB | ⚠️ Careful |
+| Simulators | 10-50GB | ✅ Unused |
+| **Total** | **45-160GB** | - |
+
+## Automating Xcode Cleanup
+
+### Shell Alias
+
+Add to `~/.zshrc`:
+
+```bash
+alias xcode-clean='rm -rf ~/Library/Developer/Xcode/DerivedData/*'
+```
+
+### Scheduled Cleanup
+
+```bash
+# Monthly cleanup (add to crontab -e)
+0 0 1 * * rm -rf ~/Library/Developer/Xcode/DerivedData/*
+```
+
+**Caution**: Aggressive—cleans active projects too.
+
+### Cluttered Pro (Recommended)
+
+Cluttered Pro offers smart scheduled cleanup:
+- Only cleans dormant projects
+- Preserves active project caches
+- Sends notifications before cleaning
+
+## Xcode DerivedData Best Practices
+
+### 1. Clean After Xcode Updates
+
+Major Xcode updates invalidate existing caches anyway. Clean DerivedData after updating.
+
+### 2. Clean Monthly
+
+Regular cleanup prevents extreme accumulation. 5 minutes monthly saves emergency situations.
+
+### 3. Keep Active Project Caches
+
+Don't clean projects you're actively working on. Rebuilding takes time.
+
+### 4. Never Delete Archives Carelessly
+
+Archives can't be regenerated. Keep them until you're certain you don't need them.
+
+### 5. Clean Before Backups
+
+Don't back up 50GB of regenerable data:
+
+```bash
+rm -rf ~/Library/Developer/Xcode/DerivedData/*
+```
+
+## Space Recovery Expectations
+
+| What You Clean | Space Recovered | Rebuild Time |
+|----------------|-----------------|--------------|
+| Single project | 500MB - 5GB | 1-10 minutes |
+| All DerivedData | 10GB - 50GB | Varies per project |
+| + DeviceSupport | 5GB - 20GB | Re-downloads as needed |
+| + Old Archives | 5GB - 30GB | **Cannot regenerate** |
+
+<DownloadBanner />
+
+## Frequently Asked Questions
+
+### Will deleting DerivedData delete my source code?
+
+No. Your source code is in your project folder. DerivedData only contains generated files.
+
+### Do I need to quit Xcode first?
+
+Recommended but not required. Xcode handles missing DerivedData gracefully, but quitting prevents conflicts.
+
+### Will I lose my build settings?
+
+No. Build settings are in your .xcodeproj or .xcworkspace, not DerivedData.
+
+### How often should I clear DerivedData?
+
+Monthly for most developers. After Xcode updates. Whenever you experience mysterious build issues.
+
+### What about the ModuleCache folder?
+
+The ModuleCache.noindex folder is shared across projects. Deleting it forces all projects to recompile Swift modules—takes longer but sometimes fixes cross-project issues.
+
+### Can I move DerivedData to an external drive?
+
+Yes. In Xcode Settings → Locations, you can set a custom DerivedData location.
+
+## Conclusion
+
+Xcode DerivedData is essential for fast builds, but dormant projects don't need gigabytes of cached artifacts. Regular cleanup of DerivedData, iOS DeviceSupport, and old Simulators can recover **30-80GB** or more.
+
+For visual, safe cleanup of Xcode alongside Node.js, Rust, Docker, and 9 other ecosystems, use [Cluttered](/download).
+
+[Download Cluttered free](/download) and see how much Xcode space you can reclaim.

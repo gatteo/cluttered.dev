@@ -12,7 +12,6 @@ export const siteConfig = {
 export const navigation = {
   main: [
     { name: 'Features', href: '/features' },
-    { name: 'Pricing', href: '/pricing' },
     { name: 'Ecosystems', href: '/ecosystems' },
     { name: 'Blog', href: '/blog' },
     { name: 'Docs', href: '/docs' },
@@ -20,7 +19,6 @@ export const navigation = {
   footer: {
     product: [
       { name: 'Features', href: '/features' },
-      { name: 'Pricing', href: '/pricing' },
       { name: 'Download', href: '/download' },
       { name: 'Changelog', href: '/changelog' },
     ],

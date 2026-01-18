@@ -1,0 +1,148 @@
+---
+title: "Cluttered: The Best Disk Cleaner for Developers on Mac"
+description: "Learn how to use Cluttered to safely clean node_modules, Rust target, Xcode DerivedData, and Docker. Reclaim 50-100GB of disk space in minutes."
+date: 2025-12-27
+author: "Cluttered Team"
+image: "/images/blog/getting-started.png"
+category: "Tutorial"
+tags: ["disk cleaner mac", "developer tools", "free disk space", "mac storage", "clean mac", "disk space"]
+featured: true
+draft: false
+keywords: ["disk cleaner for developers", "mac disk cleaner", "clean developer files", "reclaim disk space mac", "developer disk cleanup tool", "clean build artifacts"]
+---
+
+Generic disk cleaners like CleanMyMac don't understand developer files. They can't tell if a `node_modules` folder is from an active project or one you abandoned a year ago. Cluttered is built specifically to solve this problem.
+
+## What Makes Cluttered Different?
+
+Unlike generic disk cleaners, Cluttered understands developer workflows:
+
+| Feature | Generic Cleaners | Cluttered |
+|---------|------------------|-----------|
+| Understands node_modules | ❌ | ✅ |
+| Knows Rust target/ directories | ❌ | ✅ |
+| Detects active vs dormant projects | ❌ | ✅ |
+| Respects uncommitted git changes | ❌ | ✅ |
+| Supports 12+ dev ecosystems | ❌ | ✅ |
+
+## How Much Disk Space Can Developers Recover?
+
+A typical developer machine accumulates:
+
+- **20-50GB** in node_modules across projects
+- **10-30GB** in Rust target directories
+- **20-100GB** in Xcode DerivedData
+- **5-50GB** in Docker images and containers
+
+**Total: 50-200GB** of recoverable space on most developer machines.
+
+## Supported Development Ecosystems
+
+Cluttered scans and cleans artifacts from:
+
+1. **Node.js** - node_modules directories
+2. **Rust** - target/ directories and Cargo cache
+3. **Xcode** - DerivedData, Device Support, Archives
+4. **Docker** - Images, containers, volumes, build cache
+5. **Python** - virtualenv, .venv, __pycache__
+6. **Go** - Module cache, build cache
+7. **Android** - Gradle cache, build directories
+8. **Ruby** - Bundler cache, gem installations
+9. **PHP** - Composer vendor directories
+10. **Java** - Maven .m2 cache, Gradle cache
+11. **Elixir** - _build, deps directories
+12. **.NET** - bin, obj directories
+
+<DownloadBanner variant="compact" title="Ready to see how much space you can recover?" subtitle="Free scan shows results before you clean anything." />
+
+## How Cluttered Works
+
+### Step 1: Smart Scanning
+
+Cluttered scans your entire drive using parallel filesystem traversal. It identifies projects by their structure—package.json for Node, Cargo.toml for Rust, .xcodeproj for Xcode.
+
+### Step 2: Project Intelligence
+
+For each project, Cluttered analyzes:
+
+- **Git status**: Are there uncommitted changes?
+- **Last modified**: When was this project last touched?
+- **IDE markers**: Is this project open in an IDE?
+- **Size**: How much space is the build folder using?
+
+### Step 3: Safe Cleanup
+
+Projects are categorized:
+
+- **Green (Safe)**: Dormant projects with no uncommitted changes
+- **Yellow (Caution)**: Recently modified but no uncommitted work
+- **Red (Active)**: Currently in use or has uncommitted changes
+
+### Step 4: Trash-First Deletion
+
+Everything goes to Trash first. If you realize you needed something, you can recover it for 30 days.
+
+## Getting Started with Cluttered
+
+1. [Download Cluttered](/download) (free)
+2. Open the app and click "Scan"
+3. Review found projects and their sizes
+4. Select what to clean (start with dormant projects)
+5. Click "Clean"
+
+The entire process takes under 5 minutes for most machines.
+
+## Free vs Pro Features
+
+### Free (Unlimited)
+- Full scanning capabilities
+- All 12+ ecosystem support
+- Project intelligence
+- Manual cleanup
+- Trash-first safety
+
+### Pro ($4.99/month)
+- Scheduled automatic scans
+- Auto-clean dormant projects
+- Priority support
+- Early access to new features
+
+Most developers get full value from the free version. Pro is for "set it and forget it" automation.
+
+## Why Developers Love Cluttered
+
+> "I recovered 87GB on my MacBook Pro. Most of it was old Rust projects I forgot about." — Senior Developer
+
+> "Finally, a tool that understands that node_modules is safe to delete but I shouldn't lose my uncommitted work." — Frontend Engineer
+
+> "The Xcode cleanup alone was worth it. 45GB of DerivedData from projects I haven't touched in months." — iOS Developer
+
+<DownloadBanner />
+
+## Frequently Asked Questions
+
+### Is Cluttered safe to use?
+
+Yes. Cluttered never deletes uncommitted git changes, moves everything to Trash first, and lets you preview exactly what will be deleted.
+
+### Will cleaning slow down my builds?
+
+Only temporarily. Deleted artifacts are regenerated on your next build. For dormant projects, there's no impact until you work on them again.
+
+### Does Cluttered work with all project types?
+
+Cluttered supports 12+ ecosystems covering most developer workflows. If your ecosystem isn't supported, [let us know](https://github.com/cluttered-app/feedback).
+
+### Is Cluttered free?
+
+Yes, the core functionality is completely free with no limits on manual cleanup. Pro adds automation features.
+
+### Does it work on Apple Silicon Macs?
+
+Yes. Cluttered is a universal binary optimized for both Intel and Apple Silicon Macs.
+
+## Download Cluttered
+
+Ready to reclaim your disk space? [Download Cluttered free](/download) and see how much space you can recover.
+
+Works on macOS 12.0 (Monterey) and later.

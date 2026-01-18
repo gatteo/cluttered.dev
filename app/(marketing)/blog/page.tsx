@@ -24,7 +24,7 @@ export default function BlogPage() {
           <p className="text-xl text-text-secondary mb-8">Tips, tutorials, and insights for developers</p>
 
           {/* Categories */}
-          {categories.length > 0 && (
+          {/* {categories.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-12">
               {categories.map((category) => (
                 <Badge key={category} variant="secondary">
@@ -32,7 +32,7 @@ export default function BlogPage() {
                 </Badge>
               ))}
             </div>
-          )}
+          )} */}
         </FadeIn>
 
         {posts.length === 0 ? (

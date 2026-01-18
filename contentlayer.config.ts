@@ -18,6 +18,8 @@ export const Post = defineDocumentType(() => ({
     author: { type: 'string', default: 'Cluttered Team' },
     image: { type: 'string', required: false },
     tags: { type: 'list', of: { type: 'string' }, default: [] },
+    keywords: { type: 'list', of: { type: 'string' }, default: [] },
+    howToSteps: { type: 'list', of: { type: 'string' }, default: [] },
     category: { type: 'string', required: true },
     featured: { type: 'boolean', default: false },
     draft: { type: 'boolean', default: false },

@@ -1,0 +1,384 @@
+---
+title: "Docker Disk Space: How to Check Usage and Free Up Space"
+description: "Learn how to check Docker disk space usage with docker system df and free up 10-50GB by cleaning images, containers, volumes, and build cache."
+date: 2025-12-19
+author: "Cluttered Team"
+category: "Tutorial"
+tags: ["docker disk space", "docker storage", "docker prune", "docker images size", "docker cleanup", "free docker space"]
+featured: false
+keywords: ["docker disk space", "docker system df", "docker taking up space", "docker storage location", "docker disk usage", "docker using too much space", "reclaim docker space"]
+---
+
+Docker can consume 20-50GB or more without you realizing it. Images, containers, volumes, and build cache accumulate over time. This guide shows you how to check Docker disk usage and reclaim that space.
+
+## How to Check Docker Disk Space Usage
+
+### Quick Overview
+
+```bash
+docker system df
+```
+
+Output:
+
+```
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          45        12        18.5GB    12.3GB (66%)
+Containers      23        3         2.1GB     1.9GB (90%)
+Local Volumes   12        5         5.2GB     3.1GB (59%)
+Build Cache     -         -         8.4GB     8.4GB
+```
+
+**RECLAIMABLE** shows how much you can safely free—in this example, 25GB+.
+
+### Detailed View
+
+```bash
+docker system df -v
+```
+
+Shows individual images, containers, and volumes with sizes.
+
+### Check Image Sizes
+
+```bash
+docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}" | sort -k3 -hr
+```
+
+### Check Container Disk Usage
+
+```bash
+docker ps -as
+```
+
+### Check Volume Sizes
+
+```bash
+docker system df -v | grep -A 100 "Local Volumes"
+```
+
+## Where Does Docker Store Data?
+
+### macOS (Docker Desktop)
+
+```
+~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw
+```
+
+This single file contains all Docker data. It grows but doesn't shrink automatically.
+
+### Linux
+
+```
+/var/lib/docker/
+├── overlay2/      # Image layers
+├── containers/    # Container data
+├── volumes/       # Named volumes
+├── image/         # Image metadata
+└── buildkit/      # Build cache
+```
+
+### Windows (Docker Desktop with WSL 2)
+
+```
+%LOCALAPPDATA%\Docker\wsl\data\ext4.vhdx
+```
+
+## What Consumes Docker Disk Space?
+
+### 1. Docker Images
+
+Every image you've pulled or built stays until you remove it.
+
+```bash
+# List all images
+docker images
+
+# List dangling (untagged) images
+docker images -f "dangling=true"
+```
+
+Typical usage: **5-30GB**
+
+### 2. Docker Containers
+
+Stopped containers keep their writable layer.
+
+```bash
+# List all containers including stopped
+docker ps -a
+
+# List only stopped containers
+docker ps -a -f "status=exited"
+```
+
+Typical usage: **100MB-5GB**
+
+### 3. Docker Volumes
+
+Named volumes persist data between container runs. Orphaned volumes remain after containers are deleted.
+
+```bash
+docker volume ls
+```
+
+Typical usage: **1-20GB**
+
+### 4. Docker Build Cache
+
+BuildKit caches every layer from `docker build`.
+
+```bash
+docker builder du
+```
+
+Typical usage: **2-15GB**
+
+## How to Free Docker Disk Space
+
+### Remove Dangling Images (Safest)
+
+```bash
+docker image prune
+```
+
+Removes untagged images—leftovers from builds. Always safe.
+
+### Remove All Unused Images
+
+```bash
+docker image prune -a
+```
+
+Removes images not used by any container. You'll need to re-pull them.
+
+### Remove Stopped Containers
+
+```bash
+docker container prune
+```
+
+Removes all containers not currently running.
+
+### Remove Unused Volumes
+
+```bash
+docker volume prune
+```
+
+**Warning**: Deletes data! Check volumes before pruning:
+
+```bash
+docker volume inspect volume_name
+```
+
+### Remove Build Cache
+
+```bash
+docker builder prune
+```
+
+Clears build cache. Next builds will be slower initially.
+
+### Remove Everything Unused
+
+```bash
+docker system prune
+```
+
+Removes:
+- Stopped containers
+- Dangling images
+- Unused networks
+- Dangling build cache
+
+### Maximum Cleanup (Nuclear)
+
+```bash
+docker system prune -a --volumes
+```
+
+Removes ALL unused data including images and volumes. Use carefully.
+
+## Docker Disk Space Commands Reference
+
+| Command | What It Removes | Typical Recovery |
+|---------|-----------------|------------------|
+| `docker image prune` | Dangling images | 1-5GB |
+| `docker image prune -a` | All unused images | 5-20GB |
+| `docker container prune` | Stopped containers | 100MB-2GB |
+| `docker volume prune` | Unused volumes | 1-10GB |
+| `docker builder prune` | Build cache | 2-15GB |
+| `docker system prune` | All dangling | 5-15GB |
+| `docker system prune -a --volumes` | Everything unused | 10-50GB |
+
+<DownloadBanner variant="compact" title="See all your Docker resources" subtitle="Visual cleanup that shows what's safe to delete." />
+
+## Docker Desktop Disk Space (macOS/Windows)
+
+Docker Desktop uses a virtual disk that grows but doesn't automatically shrink.
+
+### Check Docker Desktop Disk Size
+
+**macOS:**
+```bash
+ls -lh ~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw
+```
+
+**Windows:**
+```powershell
+Get-Item "$env:LOCALAPPDATA\Docker\wsl\data\ext4.vhdx" | Select-Object Length
+```
+
+### Shrink Docker Desktop Disk
+
+After pruning, the virtual disk may still be large. To reclaim space:
+
+**macOS:**
+1. Docker Desktop → Settings → Resources
+2. Reduce disk image size
+3. Apply & Restart
+
+**Windows:**
+```powershell
+# Stop Docker Desktop first
+wsl --shutdown
+Optimize-VHD -Path "$env:LOCALAPPDATA\Docker\wsl\data\ext4.vhdx" -Mode Full
+```
+
+## Automating Docker Disk Cleanup
+
+### Cron Job
+
+```bash
+# Weekly cleanup - add to crontab -e
+0 3 * * 0 docker system prune -f >> /var/log/docker-prune.log 2>&1
+```
+
+### Docker Compose Integration
+
+```bash
+# After stopping services
+docker-compose down -v --rmi local
+```
+
+### CI/CD Pipelines
+
+```yaml
+# GitHub Actions
+- name: Docker cleanup
+  if: always()
+  run: docker system prune -f
+```
+
+## How Cluttered Helps with Docker
+
+[Cluttered](/download) makes Docker cleanup visual and safe:
+
+- **See all Docker resources** at a glance
+- **Reclaimable space** shown clearly
+- **Safe vs risky** deletions identified
+- **Project context** for images
+- **Multi-ecosystem** cleanup
+
+Unlike command-line prunes, Cluttered lets you selectively clean.
+
+## Best Practices to Reduce Docker Disk Usage
+
+### 1. Use Specific Image Tags
+
+```dockerfile
+# Bad - accumulates versions
+FROM node:latest
+
+# Good - single version
+FROM node:20-slim
+```
+
+### 2. Use Slim Base Images
+
+| Image | Size |
+|-------|------|
+| python:3.12 | 900MB |
+| python:3.12-slim | 150MB |
+| python:3.12-alpine | 50MB |
+
+### 3. Multi-Stage Builds
+
+```dockerfile
+FROM node:20 AS builder
+RUN npm ci && npm run build
+
+FROM node:20-slim
+COPY --from=builder /app/dist ./dist
+```
+
+### 4. Use .dockerignore
+
+```
+node_modules
+.git
+*.log
+.env
+```
+
+Prevents large files from entering build context.
+
+### 5. Regular Cleanup
+
+Monthly `docker system prune` prevents extreme accumulation.
+
+## Docker Disk Space Recovery Expectations
+
+| Docker Usage | Typical Usage | Reclaimable |
+|--------------|---------------|-------------|
+| Light (5-10 images) | 5-10GB | 3-5GB |
+| Medium (20-30 images) | 15-30GB | 10-20GB |
+| Heavy (50+ images) | 40-80GB | 25-50GB |
+| CI/CD workers | 50-100GB | 30-70GB |
+
+Most developers recover **10-30GB** from Docker cleanup.
+
+<DownloadBanner />
+
+## Frequently Asked Questions
+
+### Why is Docker using so much disk space?
+
+Common causes:
+- Old images never removed
+- Stopped containers not pruned
+- Build cache accumulation
+- Orphaned volumes
+- Using `:latest` tags (each pull cached separately)
+
+### Will cleaning Docker break my running containers?
+
+No. Prune commands only affect unused resources. Running containers and their images are protected.
+
+### How often should I clean Docker?
+
+Monthly for most developers. CI/CD systems should clean daily or after each job.
+
+### Can I recover deleted Docker images?
+
+Only if they're in a registry. Local deletions are permanent—you'll need to re-pull.
+
+### Does Docker Desktop reclaim space automatically?
+
+No. The virtual disk grows but doesn't shrink. After pruning, you may need to manually compact it.
+
+### What's the difference between docker system prune options?
+
+- `docker system prune` - Removes dangling resources only
+- `docker system prune -a` - Also removes unused images
+- `docker system prune --volumes` - Also removes volumes (data!)
+- `docker system prune -a --volumes` - Maximum cleanup
+
+## Conclusion
+
+Docker disk space management requires regular attention. Between images, containers, volumes, and build cache, Docker easily consumes 20-50GB or more.
+
+Use `docker system df` to monitor usage, and `docker system prune` for routine cleanup. For visual, safe cleanup across Docker and all your development tools, try [Cluttered](/download).
+
+[Download Cluttered](/download) and reclaim your Docker disk space today.

@@ -503,6 +503,15 @@ body {
   animation: slide-up 0.5s ease-out;
 }
 
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease-in-out infinite;
+}
+
 /* shadcn/ui theme - dark purple theme matching website */
 :root {
   --radius: 0.625rem;

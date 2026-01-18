@@ -1,0 +1,342 @@
+---
+title: "Go Clean Cache: How to Clear Go Module and Build Cache"
+description: "Complete guide to go clean cache commands. Learn how to clear Go module cache, build cache, and test cache to free up 5-30GB of disk space."
+date: 2025-12-29
+author: "Cluttered Team"
+category: "Tutorial"
+tags: ["go clean cache", "golang cache", "go mod cache", "go build cache", "clear go cache", "golang cleanup", "disk space"]
+featured: false
+keywords: ["go clean cache", "go clean -cache", "go clean -modcache", "golang clear cache", "go module cache", "GOMODCACHE", "GOCACHE", "go clean all"]
+---
+
+The `go clean` command is your primary tool for clearing Go's various caches. Whether you need to clear the module cache, build cache, or test cache, this guide covers every `go clean` flag and when to use each.
+
+## Go Cache Locations
+
+Go maintains three separate caches:
+
+### Go Module Cache (GOMODCACHE)
+
+```bash
+go env GOMODCACHE
+# Default: ~/go/pkg/mod/
+```
+
+Contains all downloaded module source code.
+
+### Go Build Cache (GOCACHE)
+
+```bash
+go env GOCACHE
+# macOS: ~/Library/Caches/go-build/
+# Linux: ~/.cache/go-build/
+```
+
+Contains compiled packages for faster rebuilds.
+
+### Go Test Cache
+
+Part of GOCACHE. Stores test results to skip unchanged tests.
+
+## How to Check Go Cache Size
+
+```bash
+# Check module cache size
+du -sh $(go env GOMODCACHE)
+
+# Check build cache size
+du -sh $(go env GOCACHE)
+
+# Check both
+du -sh $(go env GOMODCACHE) $(go env GOCACHE)
+```
+
+### Typical Go Cache Sizes
+
+| Cache Type | Light Usage | Heavy Usage |
+|------------|-------------|-------------|
+| Module Cache | 2-10GB | 20-50GB |
+| Build Cache | 500MB-2GB | 5-15GB |
+| **Total** | **3-12GB** | **25-65GB** |
+
+## Go Clean Cache Commands
+
+### go clean -cache (Build Cache)
+
+Clears compiled packages and build artifacts:
+
+```bash
+go clean -cache
+```
+
+This is the safest cleanup. Go recompiles packages as needed.
+
+### go clean -testcache (Test Cache)
+
+Clears cached test results:
+
+```bash
+go clean -testcache
+```
+
+Your next `go test` runs all tests from scratch.
+
+### go clean -modcache (Module Cache)
+
+Clears all downloaded modules:
+
+```bash
+go clean -modcache
+```
+
+**Note**: May require sudo due to read-only permissions:
+
+```bash
+sudo go clean -modcache
+```
+
+### go clean -fuzzcache (Fuzz Cache)
+
+Clears fuzzing corpus:
+
+```bash
+go clean -fuzzcache
+```
+
+### Clear All Go Caches
+
+Remove everything at once:
+
+```bash
+go clean -cache -testcache -modcache
+```
+
+Or with sudo if needed:
+
+```bash
+sudo go clean -cache -testcache -modcache
+```
+
+## Go Clean Command Reference
+
+| Command | What It Clears | Safe? | Consequence |
+|---------|----------------|-------|-------------|
+| `go clean -cache` | Build artifacts | ✅ Yes | Slower first build |
+| `go clean -testcache` | Test results | ✅ Yes | All tests re-run |
+| `go clean -modcache` | Downloaded modules | ✅ Yes | Re-download on build |
+| `go clean -fuzzcache` | Fuzz corpus | ✅ Yes | Lose fuzz inputs |
+
+All commands are safe. Go recreates whatever it needs.
+
+## Understanding Go Module Cache Structure
+
+```
+~/go/pkg/mod/
+├── cache/
+│   ├── download/    # Original .zip archives
+│   └── vcs/         # VCS metadata
+├── github.com/
+│   ├── gin-gonic/
+│   │   └── gin@v1.9.1/
+│   ├── gorilla/
+│   │   ├── mux@v1.8.0/
+│   │   └── mux@v1.8.1/
+```
+
+Go keeps every version of every module you've used. This is why the cache grows so large.
+
+### Why Go Modules Are Read-Only
+
+```bash
+ls -la ~/go/pkg/mod/github.com/gin-gonic/
+# drwxr-xr-x (no write permission)
+```
+
+Go checksums modules for integrity, making them immutable. This is why `go clean -modcache` sometimes needs sudo.
+
+<DownloadBanner variant="compact" title="Want visual Go cleanup?" subtitle="See exactly what's using space before you delete it." />
+
+## How to Clear Specific Go Modules
+
+Go doesn't provide selective module cleanup. Your options:
+
+### Option 1: Clear Everything
+
+```bash
+go clean -modcache
+```
+
+### Option 2: Manual Removal
+
+```bash
+# Find large modules
+du -sh ~/go/pkg/mod/* 2>/dev/null | sort -hr | head -20
+
+# Remove specific module (requires sudo)
+sudo rm -rf ~/go/pkg/mod/github.com/large-module
+```
+
+### Option 3: Find Old Module Versions
+
+```bash
+# List all versions of a module
+ls ~/go/pkg/mod/github.com/gin-gonic/
+
+# Remove old versions
+sudo rm -rf ~/go/pkg/mod/github.com/gin-gonic/gin@v1.7.0
+```
+
+## Go Build Without Cache
+
+Instead of clearing cache, bypass it:
+
+```bash
+# Rebuild ignoring cache
+go build -a ./...
+
+# Run tests without cache
+go test -count=1 ./...
+```
+
+Useful for debugging without affecting the cache.
+
+## Go Clean for CI/CD
+
+### Don't Clear Modcache in CI
+
+```yaml
+# GitHub Actions - cache modules
+- name: Cache Go modules
+  uses: actions/cache@v3
+  with:
+    path: |
+      ~/go/pkg/mod
+      ~/.cache/go-build
+    key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+```
+
+Running `go clean -modcache` in CI defeats caching benefits.
+
+### When to Clear in CI
+
+```yaml
+# Only clear build cache if needed
+- name: Clear build cache
+  run: go clean -cache
+```
+
+## Automate Go Cleanup with Cluttered
+
+[Cluttered](/download) provides visual Go cache cleanup:
+
+- **Shows cache sizes**: See exactly how much Go caches use
+- **Scans Go projects**: Finds all Go projects on your system
+- **Smart cleanup**: Identifies active vs. dormant projects
+- **Safe deletion**: Moves to Trash for recovery
+- **Multi-ecosystem**: Cleans Go alongside Node, Rust, Docker, and more
+
+Unlike `go clean`, Cluttered shows what you're deleting before you delete it.
+
+## Go Cache Best Practices
+
+### 1. Monthly Go Cache Maintenance
+
+```bash
+go clean -cache -testcache
+```
+
+Clear build and test cache monthly. Only clear modcache when disk space is critical.
+
+### 2. Use Go Modules Proxy
+
+```bash
+go env GOPROXY
+# Should show: https://proxy.golang.org,direct
+```
+
+The default proxy makes re-downloads fast.
+
+### 3. Vendor Dependencies for Critical Projects
+
+```bash
+go mod vendor
+```
+
+Stores dependencies in your project, reducing modcache impact.
+
+### 4. Move Go Cache to Larger Drive
+
+```bash
+export GOMODCACHE=/path/to/larger/drive/go/pkg/mod
+```
+
+### 5. Clean Before Container Images
+
+```bash
+go clean -cache -modcache
+```
+
+Don't ship caches in Docker images.
+
+## How Much Disk Space Can You Recover?
+
+| Developer Type | Module Cache | Build Cache | Total Recovery |
+|----------------|--------------|-------------|----------------|
+| Hobbyist | 1-3GB | 200MB | 1-3GB |
+| Professional | 5-15GB | 1-2GB | 6-17GB |
+| Microservices | 20-40GB | 3-5GB | 23-45GB |
+
+Most Go developers recover 5-15GB from cache cleanup.
+
+<DownloadBanner />
+
+## Frequently Asked Questions
+
+### Does go clean cache affect go.mod or go.sum?
+
+No. Those files are in your project directory. Cache cleanup never touches them.
+
+### Will my Go project still build after clearing cache?
+
+Yes. Go automatically re-downloads modules listed in go.mod.
+
+### Can I clean only unused Go modules?
+
+Not with built-in tools. Go doesn't track which modules are "in use" across projects. It's all-or-nothing with `-modcache`.
+
+### What's the difference between go mod tidy and go clean?
+
+`go mod tidy` updates your go.mod/go.sum to match actual imports. `go clean` removes cached files. They do different things.
+
+### Is GOPATH cache still used?
+
+With Go modules (Go 1.16+), GOPATH/pkg is mostly unused. Modules go to GOMODCACHE instead.
+
+### How do I clear Go cache on Windows?
+
+Same commands work:
+
+```powershell
+go clean -cache -modcache
+```
+
+Cache locations differ:
+- Build cache: `%LocalAppData%\go-build`
+- Module cache: `%GOPATH%\pkg\mod`
+
+## Go Clean vs Other Cache Commands
+
+| Language | Clear Build Cache | Clear Dependencies |
+|----------|-------------------|-------------------|
+| Go | `go clean -cache` | `go clean -modcache` |
+| Rust | `cargo clean` | `cargo cache --autoclean` |
+| Node | `npm cache clean` | `rm -rf node_modules` |
+| Python | N/A | `pip cache purge` |
+
+## Conclusion
+
+The `go clean` command with its various flags (`-cache`, `-modcache`, `-testcache`) gives you full control over Go's caches. For routine maintenance, `go clean -cache -testcache` is safe and effective. Reserve `-modcache` for when you need significant space recovery.
+
+For automated, visual cleanup across Go and other development tools, try [Cluttered](/download).
+
+[Download Cluttered](/download) to automate Go cleanup alongside 11 other development ecosystems.

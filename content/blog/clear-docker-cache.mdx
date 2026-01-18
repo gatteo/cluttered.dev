@@ -1,0 +1,455 @@
+---
+title: "Clear Docker Cache: How to Clean Build Cache, Images & Containers"
+description: "Learn how to clear Docker cache with docker system prune, docker builder prune, and other commands. Free up 10-50GB by cleaning build cache, images, and containers."
+date: 2025-12-30
+author: "Cluttered Team"
+category: "Tutorial"
+tags: ["docker clear cache", "clear docker cache", "docker clean build", "docker prune", "docker cache", "docker disk space", "docker cleanup"]
+featured: false
+keywords: ["clear docker cache", "docker clear cache", "docker clean build cache", "docker builder prune", "docker system prune", "docker reclaimable space", "docker free space", "docker container disk space"]
+---
+
+Docker caches everything—build layers, images, containers, and volumes. Running `docker system prune` is the fastest way to clear Docker cache, but there are more targeted commands depending on what you need to clean.
+
+This guide covers every Docker cache clearing command and when to use each.
+
+## Check Docker Cache Size
+
+First, see how much space Docker is using:
+
+```bash
+docker system df
+```
+
+Output:
+
+```
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          45        12        18.5GB    12.3GB (66%)
+Containers      23        3         2.1GB     1.9GB (90%)
+Local Volumes   12        5         5.2GB     3.1GB (59%)
+Build Cache     -         -         8.4GB     8.4GB
+```
+
+The "RECLAIMABLE" column shows what you can safely clear—often 20-50GB.
+
+For detailed view:
+
+```bash
+docker system df -v
+```
+
+## Docker Cache Types Explained
+
+### Docker Build Cache
+
+Created by `docker build`. Each Dockerfile instruction caches a layer:
+
+```bash
+docker builder du
+```
+
+### Docker Image Cache
+
+Pulled and built images. Shared layers between images accumulate:
+
+```bash
+docker images
+```
+
+### Docker Container Cache
+
+Stopped containers keep their writable layer:
+
+```bash
+docker ps -a
+```
+
+### Docker Volume Cache
+
+Named volumes persist data between container runs:
+
+```bash
+docker volume ls
+```
+
+## How to Clear Docker Build Cache
+
+Build cache often grows largest. Clear it with:
+
+```bash
+docker builder prune
+```
+
+### Clear All Docker Build Cache
+
+Including active cache entries:
+
+```bash
+docker builder prune -a
+```
+
+### Clear Docker Build Cache Without Confirmation
+
+```bash
+docker builder prune -f
+```
+
+### Keep Recent Docker Build Cache
+
+Clear cache older than 24 hours:
+
+```bash
+docker builder prune --filter "until=24h"
+```
+
+Keep last 5GB:
+
+```bash
+docker builder prune --keep-storage 5GB
+```
+
+## How to Clear Docker Image Cache
+
+### Remove Dangling Docker Images
+
+Untagged images from old builds:
+
+```bash
+docker image prune
+```
+
+Always safe, typically recovers several GB.
+
+### Remove All Unused Docker Images
+
+Images not used by any container:
+
+```bash
+docker image prune -a
+```
+
+**Note**: Requires re-pulling images later.
+
+### Remove Docker Images by Age
+
+```bash
+docker image prune -a --filter "until=720h"  # 30 days
+```
+
+### Remove Specific Docker Images
+
+```bash
+docker rmi nginx:latest
+docker rmi abc123def456
+docker rmi nginx redis postgres
+```
+
+## How to Clear Docker Container Cache
+
+Remove stopped containers:
+
+```bash
+docker container prune
+```
+
+### View Stopped Containers First
+
+```bash
+docker ps -a --filter "status=exited"
+```
+
+### Remove Specific Containers
+
+```bash
+docker rm container_name_or_id
+docker rm -f running_container  # Force
+```
+
+## How to Clear Docker Volume Cache
+
+Remove orphaned volumes:
+
+```bash
+docker volume prune
+```
+
+**Warning**: This deletes data. Check volumes first:
+
+```bash
+docker volume ls
+docker volume inspect volume_name
+```
+
+## Docker System Prune: Clear All Docker Cache
+
+The fastest way to clear Docker cache:
+
+```bash
+docker system prune
+```
+
+Removes:
+- Stopped containers
+- Dangling images
+- Unused networks
+- Dangling build cache
+
+### Clear All Docker Cache Including Volumes
+
+Maximum cleanup:
+
+```bash
+docker system prune -a --volumes
+```
+
+**Warning**: Aggressive. Removes all unused images and volumes.
+
+### Docker System Prune Without Confirmation
+
+```bash
+docker system prune -f
+docker system prune -af --volumes  # Nuclear option
+```
+
+## Docker Cache Command Reference
+
+| Command | What It Clears | Safe? | Space Recovery |
+|---------|----------------|-------|----------------|
+| `docker builder prune` | Build cache | ✅ Yes | 2-10GB |
+| `docker image prune` | Dangling images | ✅ Yes | 1-5GB |
+| `docker image prune -a` | Unused images | ⚠️ Mostly | 5-20GB |
+| `docker container prune` | Stopped containers | ✅ Usually | 100MB-2GB |
+| `docker volume prune` | Unused volumes | ⚠️ Data loss! | 1-10GB |
+| `docker system prune` | All dangling | ✅ Yes | 5-15GB |
+| `docker system prune -a --volumes` | Everything unused | ⚠️ Aggressive | 10-50GB |
+
+<DownloadBanner variant="compact" title="Docker cleanup doesn't have to be manual" subtitle="Cluttered shows your Docker resources visually before cleaning." />
+
+## Docker Clean Build (Build Without Cache)
+
+Sometimes you want a fresh build without clearing cache:
+
+```bash
+# Build without cache
+docker build --no-cache -t myapp .
+
+# Also pull fresh base image
+docker build --no-cache --pull -t myapp .
+```
+
+Useful for:
+- Debugging build issues
+- Ensuring reproducible builds
+- CI/CD pipelines
+
+## Docker BuildKit Cache
+
+If using BuildKit (Docker's modern build engine):
+
+```bash
+# Check BuildKit cache
+docker buildx du
+
+# Clear BuildKit cache
+docker buildx prune
+
+# Clear all BuildKit data
+docker buildx prune -a
+```
+
+## Docker Cache Location
+
+### macOS (Docker Desktop)
+```
+~/Library/Containers/com.docker.docker/Data/vms/0/data/
+```
+
+### Windows (Docker Desktop)
+```
+%LOCALAPPDATA%\Docker\wsl\data\
+```
+
+### Linux
+```
+/var/lib/docker/
+```
+
+**Don't manually delete these files**—use Docker commands instead.
+
+## Automate Docker Cleanup
+
+### Cron Job for Docker Cache
+
+```bash
+# Weekly cleanup - add to crontab -e
+0 3 * * 0 docker system prune -f >> /var/log/docker-prune.log 2>&1
+```
+
+### Docker Compose Cleanup
+
+```bash
+docker-compose down           # Stop, remove containers/networks
+docker-compose down -v        # Also remove volumes
+docker-compose down --rmi all # Also remove images
+```
+
+### CI/CD Docker Cleanup
+
+```yaml
+# GitHub Actions
+- name: Docker cleanup
+  if: always()
+  run: docker system prune -f
+```
+
+## Docker Disk Space: Reclaimable Space Explained
+
+The `docker system df` output shows "RECLAIMABLE" space:
+
+```
+TYPE            SIZE      RECLAIMABLE
+Images          18.5GB    12.3GB (66%)
+```
+
+This means:
+- **18.5GB total** images on disk
+- **12.3GB reclaimable** (unused images)
+- **6.2GB in use** (by running/stopped containers)
+
+To reclaim that 12.3GB:
+
+```bash
+docker image prune -a
+```
+
+## How Cluttered Helps with Docker Cleanup
+
+[Cluttered](/download) makes Docker cleanup visual and safe:
+
+- **Visual overview**: See all Docker resources at a glance
+- **Reclaimable space**: Instantly see recovery potential
+- **Smart detection**: Identifies safe vs. risky deletions
+- **Project context**: Knows which images belong to which projects
+- **Multi-tool**: Cleans Docker alongside Node, Rust, Go, and more
+
+Unlike command-line prunes, Cluttered lets you selectively clean.
+
+## Docker Best Practices to Reduce Cache Growth
+
+### 1. Use Specific Image Tags
+
+```dockerfile
+# Bad - accumulates versions
+FROM node:latest
+
+# Good - consistent version
+FROM node:20.10-slim
+```
+
+### 2. Use Slim/Alpine Base Images
+
+```dockerfile
+FROM python:3.12          # 900MB
+FROM python:3.12-slim     # 150MB
+FROM python:3.12-alpine   # 50MB
+```
+
+### 3. Multi-Stage Docker Builds
+
+```dockerfile
+FROM node:20 AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM node:20-slim
+COPY --from=builder /app/dist ./dist
+CMD ["node", "dist/index.js"]
+```
+
+### 4. Use .dockerignore
+
+```
+node_modules
+.git
+*.log
+.env
+coverage
+dist
+```
+
+### 5. Combine RUN Commands
+
+```dockerfile
+RUN apt-get update \
+    && apt-get install -y curl \
+    && rm -rf /var/lib/apt/lists/*
+```
+
+## Docker Disk Space Recovery Expectations
+
+| Docker Usage | Total Cache | Reclaimable |
+|--------------|-------------|-------------|
+| Light (5-10 images) | 5-10GB | 3-5GB |
+| Medium (20-30 images) | 15-30GB | 10-20GB |
+| Heavy (50+ images) | 40-80GB | 25-50GB |
+| CI/CD Workers | 50-100GB | 30-70GB |
+
+Most developers recover 10-30GB from Docker cleanup.
+
+<DownloadBanner />
+
+## Frequently Asked Questions
+
+### Will clearing Docker cache break running containers?
+
+No. Prune commands only affect unused resources. Running containers and their images are protected.
+
+### How often should I clear Docker cache?
+
+Monthly for most developers. CI/CD systems should clean after each job or daily.
+
+### Does Docker cache clearing affect Docker Compose projects?
+
+Only stopped services. Running services are unaffected.
+
+### Can I recover deleted Docker images?
+
+Only if pushed to a registry. Local deletions are permanent.
+
+### Why does Docker cache grow so fast?
+
+Common causes:
+- Building many image versions
+- Using `:latest` tags
+- Missing `.dockerignore`
+- Never running prune commands
+
+### What's the difference between docker prune commands?
+
+- `docker system prune` - cleans containers, images, networks, build cache
+- `docker builder prune` - only build cache
+- `docker image prune` - only images
+- `docker container prune` - only containers
+- `docker volume prune` - only volumes (data!)
+
+### How do I clear Docker cache on Mac?
+
+Same commands work. Docker Desktop manages storage in a VM:
+
+```bash
+docker system prune -a --volumes
+```
+
+For Docker Desktop specifically, you can also: Settings > Resources > Disk image size.
+
+## Conclusion
+
+Clearing Docker cache is essential maintenance. Start with `docker builder prune` for quick wins, use `docker system prune` for routine cleanup, and reserve `docker system prune -a --volumes` for when you need maximum space recovery.
+
+For visual, safe Docker cleanup alongside your other development tools, try [Cluttered](/download).
+
+[Download Cluttered](/download) to automate Docker cleanup alongside 11 other development ecosystems.

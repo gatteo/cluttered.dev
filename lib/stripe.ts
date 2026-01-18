@@ -47,9 +47,7 @@ export function generateLicenseKey(): string {
 /**
  * Validate a Stripe license key by checking payment metadata.
  */
-export async function validateLicenseKey(
-  key: string
-): Promise<{ valid: boolean; email?: string; error?: string }> {
+export async function validateLicenseKey(key: string): Promise<{ valid: boolean; email?: string; error?: string }> {
   console.log('[Stripe Validate] Starting validation for key:', key)
 
   if (!key.startsWith('CLUT-S')) {

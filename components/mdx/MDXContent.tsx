@@ -5,12 +5,14 @@ import { Callout } from './Callout'
 import { ComparisonTable } from './ComparisonTable'
 import { FAQ } from './FAQ'
 import { ArtifactList } from './ArtifactList'
+import { DownloadBanner } from './DownloadBanner'
 
 const mdxComponents = {
   Callout,
   ComparisonTable,
   FAQ,
   ArtifactList,
+  DownloadBanner,
 }
 
 interface MDXContentProps {

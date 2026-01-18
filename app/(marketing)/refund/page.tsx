@@ -17,8 +17,8 @@ export default function RefundPage() {
           <div className="prose prose-lg prose-invert max-w-none">
             <h2>30-Day Money-Back Guarantee</h2>
             <p>
-              We want you to be completely satisfied with Cluttered Pro. If for any reason you&apos;re not happy with your purchase,
-              we offer a full refund within 30 days of purchase — no questions asked.
+              We want you to be completely satisfied with Cluttered Pro. If for any reason you&apos;re not happy with your purchase, we offer a full
+              refund within 30 days of purchase — no questions asked.
             </p>
 
             <h2>How to Request a Refund</h2>
@@ -36,8 +36,8 @@ export default function RefundPage() {
 
             <h2>Refund Processing</h2>
             <p>
-              Refunds are typically processed within 5-7 business days. The refund will be credited to the original payment method
-              used for the purchase.
+              Refunds are typically processed within 5-7 business days. The refund will be credited to the original payment method used for the
+              purchase.
             </p>
 
             <h2>What Happens After a Refund</h2>
@@ -50,8 +50,8 @@ export default function RefundPage() {
 
             <h2>Exceptions</h2>
             <p>
-              Refund requests made more than 30 days after purchase are handled on a case-by-case basis.
-              We&apos;re reasonable people — if you have a genuine issue, reach out and we&apos;ll work something out.
+              Refund requests made more than 30 days after purchase are handled on a case-by-case basis. We&apos;re reasonable people — if you have a
+              genuine issue, reach out and we&apos;ll work something out.
             </p>
 
             <h2>Contact</h2>

@@ -17,8 +17,9 @@ export default function TermsPage() {
           <div className="prose prose-lg prose-invert max-w-none">
             <h2>Agreement to Terms</h2>
             <p>
-              These Terms of Service govern your use of Cluttered, a macOS application developed and operated by Matteo Giardino (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;).
-              By downloading or using Cluttered, you agree to these Terms of Service. If you don&apos;t agree, please don&apos;t use the app.
+              These Terms of Service govern your use of Cluttered, a macOS application developed and operated by Matteo Giardino (&quot;we&quot;,
+              &quot;us&quot;, &quot;our&quot;). By downloading or using Cluttered, you agree to these Terms of Service. If you don&apos;t agree,
+              please don&apos;t use the app.
             </p>
 
             <h2>Use License</h2>
@@ -62,7 +63,11 @@ export default function TermsPage() {
             <h2>Refund Policy</h2>
             <p>
               Cluttered Pro comes with a 30-day money-back guarantee. If you&apos;re not satisfied, contact us for a full refund within 30 days of
-              purchase. See our full <a href="/refund" className="text-accent-purple">Refund Policy</a> for details.
+              purchase. See our full{' '}
+              <a href="/refund" className="text-accent-purple">
+                Refund Policy
+              </a>{' '}
+              for details.
             </p>
 
             <h2>Updates and Changes</h2>

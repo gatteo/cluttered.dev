@@ -1,0 +1,363 @@
+---
+title: "Cargo Clean Cache: How to Clear Cargo Registry & Git Cache (Safely)"
+description: "Learn how to clean Cargo cache safely with cargo-cache or manual commands. Clear registry and git caches and reclaim 10–50GB of Rust disk space."
+date: 2025-12-28
+updated: 2026-01-18
+author: "Cluttered Team"
+category: "Tutorial"
+tags: ["cargo clean cache", "clear cargo cache", "cargo cache", "cargo registry cache", "cargo git cache", "rust cleanup", "disk space"]
+featured: false
+keywords: ["cargo clean cache", "clear cargo cache", "cargo cache clear", "cargo registry cache", "cargo git cache", "cargo cache location", "delete ~/.cargo/registry", "cargo-cache", "cargo cache --autoclean", "rust disk space"]
+howToSteps:
+  - "Confirm where Cargo stores its cache (usually ~/.cargo/ on macOS/Linux) and make sure no cargo build/run is currently running."
+  - "Check cache size with du (or cargo-cache) so you know what you’ll reclaim."
+  - "Clean safely: run `cargo cache --autoclean` or delete only `~/.cargo/registry/cache`, `~/.cargo/registry/src`, and `~/.cargo/git/checkouts`."
+  - "Rebuild when needed—Cargo will re-download/re-extract dependencies on demand."
+---
+
+If you searched **“cargo clean cache”**: `cargo clean` only removes your project’s `target/` directory. It does **not** clear Cargo’s global download + git caches (which can grow to **50GB+**).
+
+This guide covers the safest ways to clear Cargo’s **registry cache**, **git cache**, and **downloaded crates**—plus what *not* to delete.
+
+## TL;DR: Fastest Safe Cargo Cache Cleanup
+
+### Option 1: Use cargo-cache (Recommended)
+
+```bash
+# Install once
+cargo install cargo-cache
+
+# Smart cleanup (safe defaults)
+cargo cache --autoclean
+```
+
+### Option 2: Manual Cleanup (Safe Folders)
+
+```bash
+# Downloads + extracted sources
+rm -rf ~/.cargo/registry/cache ~/.cargo/registry/src
+
+# Git dependency checkouts (not the bare DB)
+rm -rf ~/.cargo/git/checkouts
+```
+
+**Important**:
+- **Never delete** `~/.cargo/bin` (your installed tools)
+- Don’t delete caches while `cargo build` / `cargo run` is running
+
+## Where Is Cargo Cache Located?
+
+On macOS/Linux, Cargo stores its global cache in `~/.cargo/`:
+
+```
+~/.cargo/
+├── registry/
+│   ├── index/          # Crate registry metadata (crates.io index)
+│   ├── cache/          # Downloaded .crate files
+│   └── src/            # Extracted crate source code
+├── git/
+│   ├── db/             # Cloned git repositories
+│   └── checkouts/      # Checked out commits/branches
+└── bin/                # Installed binaries (cargo install)
+```
+
+On Windows, Cargo’s default location is typically:
+
+```
+C:\Users\<you>\.cargo\
+```
+
+If you set `CARGO_HOME`, Cargo uses that path instead.
+
+## How to Check Cargo Cache Size
+
+Before cleaning, see how much space Cargo is using:
+
+```bash
+du -sh ~/.cargo/registry ~/.cargo/git
+```
+
+For a detailed breakdown:
+
+```bash
+du -sh ~/.cargo/registry/index
+du -sh ~/.cargo/registry/cache
+du -sh ~/.cargo/registry/src
+du -sh ~/.cargo/git
+```
+
+### Typical Cargo Cache Sizes
+
+| Cache Location | After 6 Months | After 1+ Year |
+|----------------|----------------|---------------|
+| registry/index | 200-500MB | 500MB-1GB |
+| registry/cache | 1-5GB | 5-15GB |
+| registry/src | 2-8GB | 10-30GB |
+| git/db + checkouts | 500MB-2GB | 2-10GB |
+| **Total** | **4-15GB** | **20-50GB+** |
+
+## How to Clean Cargo Cache Manually
+
+### Clear Cargo Registry Source Cache
+
+The `registry/src` folder contains extracted source code. Safe to delete:
+
+```bash
+rm -rf ~/.cargo/registry/src
+```
+
+Cargo re-extracts sources from `.crate` files when needed.
+
+### Clear Cargo Registry Download Cache
+
+Remove downloaded `.crate` archives:
+
+```bash
+rm -rf ~/.cargo/registry/cache
+```
+
+Cargo re-downloads crates on your next build.
+
+### Clear Cargo Git Cache
+
+For git dependencies:
+
+```bash
+rm -rf ~/.cargo/git/checkouts
+```
+
+### Clean All Cargo Cache (Nuclear Option)
+
+Remove everything except installed binaries:
+
+```bash
+rm -rf ~/.cargo/registry
+rm -rf ~/.cargo/git
+```
+
+This is safe but requires re-downloading all dependencies.
+
+<DownloadBanner variant="compact" title="Tired of manual cache cleanup?" subtitle="Cluttered automates Rust cleanup across all your projects." />
+
+## Using cargo-cache Tool (Recommended)
+
+The `cargo-cache` tool provides smarter, selective cleanup:
+
+```bash
+cargo install cargo-cache
+```
+
+If you already have it installed, you can update it with:
+
+```bash
+cargo install cargo-cache --locked
+```
+
+### Check Cargo Cache Size with cargo-cache
+
+```bash
+cargo cache
+```
+
+Output:
+
+```
+Cargo cache '~/.cargo':
+
+Total:                               12.34 GB
+  45 installed binaries:            234.56 MB
+  Registry: crates.io               11.89 GB
+    Registry index:                 456.78 MB
+    4523 crate archives:              3.45 GB
+    4523 crate source directories:    7.98 GB
+  Git db:                           123.45 MB
+    12 bare git repos
+  Git checkouts:                     89.01 MB
+    34 git repo checkouts
+```
+
+### Cargo Cache Autoclean
+
+The easiest way to clean Cargo cache:
+
+```bash
+cargo cache --autoclean
+```
+
+This removes:
+- Old crate source directories
+- Orphaned git checkouts
+- Duplicate crate versions
+
+### Cargo Cache Aggressive Cleanup
+
+For deeper cleaning:
+
+```bash
+cargo cache --autoclean-expensive
+```
+
+### Remove Specific Cargo Cache Items
+
+```bash
+# Remove all source directories
+cargo cache -r src
+
+# Remove old crate versions (keep latest)
+cargo cache --remove-dir all-ref-cache
+
+# Remove git checkouts
+cargo cache -r git-checkouts
+```
+
+## What's Safe to Delete in Cargo Cache?
+
+| Location | Safe to Delete? | What Happens |
+|----------|-----------------|--------------|
+| registry/src | ✅ Yes | Re-extracted from cache |
+| registry/cache | ✅ Yes | Re-downloaded on build |
+| registry/index | ⚠️ Careful | Slow next cargo update |
+| git/checkouts | ✅ Yes | Re-checked out on build |
+| git/db | ⚠️ Careful | Full re-clone needed |
+| bin/ | ❌ Keep | Your installed tools |
+
+**Best approach**: Use `cargo cache --autoclean` for smart decisions.
+
+## Cargo Clean vs Cargo Cache Clean
+
+Many developers confuse these:
+
+| Command | What It Cleans | Scope |
+|---------|----------------|-------|
+| `cargo clean` | target/ directory | Current project only |
+| `cargo cache --autoclean` | ~/.cargo/ caches | Global, all projects |
+
+For full Rust cleanup, you need both:
+
+```bash
+cargo clean                    # Current project's target/
+cargo cache --autoclean       # Global registry + git cache
+```
+
+## How to Clean Rust Target Directories
+
+Don't forget per-project build artifacts. Each `target/` folder can be 2-10GB:
+
+```bash
+# Clean current project
+cargo clean
+
+# Find all target directories
+find ~/projects -name "target" -type d 2>/dev/null | head -20
+
+# See sizes
+find ~/projects -name "target" -type d -exec du -sh {} \; 2>/dev/null | sort -hr | head -20
+```
+
+For a complete guide on target directories, see our [Rust target directory guide](/blog/rust-target-directory).
+
+## Automate Rust Cleanup with Cluttered
+
+[Cluttered](/download) handles complete Rust cleanup automatically:
+
+- **Scans all Rust projects**: Finds every target/ directory on your system
+- **Shows Cargo cache size**: Visualizes registry and git cache usage
+- **Identifies dormant projects**: Knows which projects are inactive
+- **Safe deletion**: Moves to Trash instead of permanent deletion
+- **Scheduled cleanup**: Pro feature for automatic maintenance
+
+Unlike manual cleanup, Cluttered understands project context and won't clean active projects.
+
+## Rust Cleanup Best Practices
+
+### 1. Monthly Cargo Cache Maintenance
+
+```bash
+cargo cache --autoclean
+```
+
+### 2. Use sccache for Shared Compilation
+
+```bash
+cargo install sccache
+export RUSTC_WRAPPER=sccache
+```
+
+Reduces duplicate compiled artifacts across projects.
+
+### 3. Pin Dependency Versions
+
+In `Cargo.toml`:
+
+```toml
+[dependencies]
+serde = "=1.0.193"  # Exact version reduces cache churn
+```
+
+### 4. Clean Before Backups
+
+```bash
+cargo clean                    # Current project
+cargo cache --autoclean       # Global caches
+```
+
+### 5. Move Cargo Cache to Larger Drive
+
+```bash
+export CARGO_HOME=/path/to/larger/drive/.cargo
+```
+
+## How Much Disk Space Can You Recover?
+
+| Developer Profile | Cargo Cache | target/ Dirs | Total Recovery |
+|-------------------|-------------|--------------|----------------|
+| Hobbyist | 2-5GB | 10-20GB | 12-25GB |
+| Professional | 5-15GB | 30-60GB | 35-75GB |
+| Heavy Rust User | 15-30GB | 80-150GB | 95-180GB |
+
+Most Rust developers recover 20-50GB from complete cleanup.
+
+<DownloadBanner />
+
+## Frequently Asked Questions
+
+### Does cargo clean cache affect Cargo.lock?
+
+No. `Cargo.lock` is in your project directory, not the cache. Cache cleanup never affects it.
+
+### Will I need to re-download all dependencies?
+
+Only when you build each project. Dependencies download on-demand, not all at once.
+
+### Is it safe to delete Cargo cache while cargo is running?
+
+No. Wait for any `cargo build` or `cargo run` commands to finish first.
+
+### How do I clean rustup cache?
+
+Rustup has separate cache in `~/.rustup/`:
+
+```bash
+# Check rustup size
+du -sh ~/.rustup
+
+# Remove old toolchains
+rustup toolchain list
+rustup toolchain uninstall 1.74.0
+```
+
+### What's the difference between cargo clean and cargo cache?
+
+`cargo clean` removes your project's compiled output (target/). `cargo cache` is a third-party tool that manages Cargo's global download cache (~/.cargo/).
+
+### Is there a built-in “cargo clean all” command?
+
+Not really. `cargo clean` is **per-project**. To clear global caches, use `cargo cache --autoclean` (recommended) or delete folders under `~/.cargo/` as shown above.
+
+## Conclusion
+
+Cleaning Cargo cache requires more than just `cargo clean`. The global registry and git caches in `~/.cargo/` can grow to 50GB or more, requiring `cargo-cache` or manual cleanup.
+
+For complete Rust cleanup including both caches and target directories, use `cargo cache --autoclean` monthly or automate with [Cluttered](/download).
+
+[Download Cluttered](/download) to automate Rust cleanup alongside 11 other development ecosystems.

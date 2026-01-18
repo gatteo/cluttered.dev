@@ -1,0 +1,232 @@
+---
+title: "Why Developers Run Out of Disk Space (And How to Fix It)"
+description: "Discover where developer disk space goes—node_modules, Rust target, Xcode DerivedData, Docker—and how to reclaim 50-150GB on your Mac."
+date: 2025-12-20
+author: "Cluttered Team"
+category: "Insights"
+tags: ["disk space", "developer tools", "mac storage", "free disk space", "storage full", "disk cleanup"]
+featured: true
+keywords: ["developer disk space", "mac disk full developer", "where did my disk space go", "reclaim disk space", "developer storage", "mac running out of space", "clean developer files"]
+---
+
+Every developer has seen it: "Your disk is almost full." It happens during critical builds, important demos, or right when you need to download something urgent.
+
+Where does all that space actually go? And more importantly, how do you get it back?
+
+## The Biggest Disk Space Consumers for Developers
+
+### 1. node_modules: The Dependency Black Hole
+
+Every JavaScript developer knows the pain. A single `npm install` pulls hundreds of megabytes. Across 10-20 projects:
+
+| Projects | Average node_modules | Total |
+|----------|---------------------|-------|
+| 10 | 300MB | 3GB |
+| 20 | 300MB | 6GB |
+| 50 | 300MB | 15GB |
+
+Many of these are dormant projects you haven't touched in months.
+
+**Typical space consumed: 5-20GB**
+
+### 2. Rust target/ Directories
+
+Rust compiles every dependency from source. A single debug build can exceed 2GB. Release builds add more.
+
+| Rust Projects | Average target/ | Total |
+|---------------|-----------------|-------|
+| 5 | 3GB | 15GB |
+| 10 | 3GB | 30GB |
+| 20 | 3GB | 60GB |
+
+**Typical space consumed: 10-50GB**
+
+### 3. Xcode DerivedData
+
+iOS and macOS developers have it worst. Xcode's DerivedData folder grows silently:
+
+- Build products per configuration
+- Simulator data per device
+- Index data for code completion
+- SwiftUI preview compilations
+
+**Typical space consumed: 20-80GB**
+
+### 4. Docker Images and Containers
+
+Docker images accumulate quickly:
+
+- Base images (500MB-1GB each)
+- Build layers cached indefinitely
+- Stopped containers with writable layers
+- Orphaned volumes with persistent data
+
+**Typical space consumed: 10-50GB**
+
+### 5. Other Development Caches
+
+| Ecosystem | Cache Location | Typical Size |
+|-----------|----------------|--------------|
+| Python venv | Per-project | 2-10GB total |
+| Go modules | ~/go/pkg/mod | 5-30GB |
+| Maven | ~/.m2 | 5-20GB |
+| Gradle | ~/.gradle | 5-15GB |
+| Homebrew | /opt/homebrew | 5-20GB |
+
+## Total Developer Disk Space Usage
+
+Adding it all up for a typical full-stack developer:
+
+| Category | Conservative | Heavy Usage |
+|----------|--------------|-------------|
+| node_modules | 5GB | 20GB |
+| Rust target/ | 10GB | 50GB |
+| Xcode DerivedData | 20GB | 80GB |
+| Docker | 10GB | 50GB |
+| Other caches | 10GB | 40GB |
+| **Total** | **55GB** | **240GB** |
+
+On a 256GB MacBook, that's potentially your entire disk consumed by regenerable artifacts.
+
+<DownloadBanner variant="compact" title="See how much you can recover" subtitle="Scan your Mac in under a minute. No cleanup required to see results." />
+
+## Why Generic Disk Cleaners Don't Help
+
+Tools like CleanMyMac or DaisyDisk can find large folders, but they can't answer:
+
+- **Is this project active?** They don't check git status or modification times
+- **Is it safe to delete?** They don't understand project structures
+- **Will it break something?** They don't know about uncommitted changes
+
+Deleting a 5GB folder is risky if you don't know what it is.
+
+## How to Actually Reclaim Disk Space
+
+### Option 1: Manual Cleanup (Time-Consuming)
+
+For each ecosystem:
+
+```bash
+# Node.js
+find ~ -name "node_modules" -type d -prune -exec rm -rf {} +
+
+# Rust
+find ~ -name "target" -type d -prune -exec rm -rf {} +
+
+# Xcode
+rm -rf ~/Library/Developer/Xcode/DerivedData/*
+
+# Docker
+docker system prune -a --volumes
+```
+
+**Problems**: Deletes everything including active projects. No safety checks.
+
+### Option 2: Ecosystem-Specific Tools (Fragmented)
+
+- `npkill` for node_modules
+- `cargo cache` for Rust
+- Xcode Settings for DerivedData
+- `docker system prune` for Docker
+
+**Problems**: Different tool for each ecosystem. Still no cross-cutting project intelligence.
+
+### Option 3: Cluttered (Recommended)
+
+[Cluttered](/download) was built specifically for this problem:
+
+1. **Single scan** finds all ecosystems
+2. **Project intelligence** identifies active vs dormant
+3. **Git awareness** protects uncommitted work
+4. **Trash-first** deletion for easy recovery
+5. **Visual interface** shows exactly what you're cleaning
+
+## How Cluttered Determines What's Safe to Delete
+
+Cluttered analyzes each project:
+
+| Signal | Safe to Clean | Unsafe |
+|--------|---------------|--------|
+| Last git commit | >90 days ago | Recent |
+| File modifications | >30 days ago | Recent |
+| Uncommitted changes | None | Has changes |
+| IDE markers | Not open | Currently open |
+
+Projects are color-coded:
+- **Green**: Dormant, safe to clean
+- **Yellow**: Recently modified, probably safe
+- **Red**: Active, has uncommitted changes
+
+## Realistic Space Recovery Expectations
+
+Based on scans across hundreds of developer machines:
+
+| Developer Type | Recoverable Space |
+|----------------|-------------------|
+| Frontend only | 10-30GB |
+| Full-stack | 30-70GB |
+| iOS/macOS | 40-100GB |
+| DevOps-heavy | 50-120GB |
+| All ecosystems | 70-150GB+ |
+
+Most developers recover **50-100GB** on their first cleanup.
+
+## Preventing Future Disk Space Problems
+
+### 1. Monthly Cleanup Routine
+
+Set a calendar reminder for the first of each month. A 5-minute cleanup prevents emergency situations.
+
+### 2. Use Shared Caches
+
+- **pnpm** for JavaScript (shares packages between projects)
+- **sccache** for Rust (shares compiled artifacts)
+- **Docker BuildKit** with external cache
+
+### 3. Automated Cleanup (Cluttered Pro)
+
+Cluttered Pro automatically cleans dormant projects on a schedule. Set it and forget it.
+
+### 4. Archive Old Projects Properly
+
+Before archiving:
+
+```bash
+cargo clean          # Rust
+rm -rf node_modules  # Node
+rm -rf .build        # Swift
+```
+
+Never back up regenerable artifacts.
+
+<DownloadBanner />
+
+## Frequently Asked Questions
+
+### Will cleaning slow down my development?
+
+Only temporarily. Deleted artifacts are regenerated on your next build. For dormant projects, there's zero impact.
+
+### What if I accidentally delete something important?
+
+Cluttered moves everything to Trash first. You have 30 days to recover before macOS empties it.
+
+### How often should I clean?
+
+Monthly for most developers. Weekly if you work on many different projects.
+
+### Is it safe to delete while projects are running?
+
+No. Close IDEs and stop running processes before cleaning. Cluttered warns about active projects.
+
+### What about system caches?
+
+Cluttered focuses on development artifacts. For system caches (browser, system temp), use macOS built-in tools or CleanMyMac.
+
+## Conclusion
+
+Developer disk space problems aren't solved by generic cleaners. You need a tool that understands node_modules, target directories, DerivedData, and Docker—and knows which projects are safe to clean.
+
+[Cluttered](/download) is built specifically for this. It scans all ecosystems, identifies dormant projects, and lets you reclaim 50-150GB safely.
+
+Stop running out of disk space at critical moments. [Download Cluttered free](/download).

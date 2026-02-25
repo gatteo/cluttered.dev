@@ -60,7 +60,7 @@ export const pricingPlans = [
     description: 'Perfect for occasional cleanup',
     features: [
       'Scan all directories',
-      'All 12+ ecosystems',
+      'All 13+ ecosystems',
       'Project activity detection',
       'Safe Trash deletion',
       'Deletion history & restore',

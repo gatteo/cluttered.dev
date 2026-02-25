@@ -8,7 +8,7 @@ export function SoftwareJsonLd() {
     description: siteConfig.description,
     url: siteConfig.url,
     downloadUrl: `${siteConfig.url}/download`,
-    softwareVersion: '1.1.0',
+    softwareVersion: '1.2.0',
     applicationCategory: 'DeveloperApplication',
     operatingSystem: 'macOS',
     offers: [
@@ -34,9 +34,11 @@ export function SoftwareJsonLd() {
       },
     ],
     featureList: [
-      'Multi-ecosystem support (12+ languages/frameworks)',
+      'Multi-ecosystem support (13+ languages/frameworks)',
+      'Global cache scanning & cleaning (npm, pnpm, Homebrew, Docker, Xcode, Android SDK, and more)',
       'Smart project activity detection',
       'Safe deletion with Trash support',
+      'Monorepo and nested project detection',
       'Docker image cleanup',
       'Xcode DerivedData cleanup',
       'Rust target directory cleanup',

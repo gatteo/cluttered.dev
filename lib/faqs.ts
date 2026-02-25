@@ -11,7 +11,7 @@ export const faqs = [
   {
     question: 'How is this different from CleanMyMac?',
     answer:
-      'Cluttered is built specifically for developers. It understands project structures, respects git history, and knows which build artifacts are safe to delete across 12+ development ecosystems.',
+      'Cluttered is built specifically for developers. It understands project structures, respects git history, and knows which build artifacts are safe to delete across 13+ development ecosystems.',
   },
   {
     question: 'Does it work on Windows?',

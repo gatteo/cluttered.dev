@@ -97,7 +97,7 @@ export function DownloadBanner({ variant = 'default', title, subtitle }: Downloa
                   <span className="ml-1 text-text-muted">typical recovery</span>
                 </div>
                 <div>
-                  <span className="font-semibold text-accent-purple">12+</span>
+                  <span className="font-semibold text-accent-purple">13+</span>
                   <span className="ml-1 text-text-muted">ecosystems</span>
                 </div>
                 <div>

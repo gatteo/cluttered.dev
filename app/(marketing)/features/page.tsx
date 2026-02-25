@@ -19,8 +19,8 @@ const features = [
       },
       {
         icon: HardDrive,
-        title: '12+ Ecosystem Support',
-        description: 'Node.js, Rust, Xcode, Docker, Python, Go, Android, Ruby, PHP, Java, Elixir, .NET - we understand them all.',
+        title: '13+ Ecosystem Support',
+        description: 'Node.js, React Native, Rust, Xcode, Docker, Python, Go, Android, Ruby, PHP, Java, Elixir, .NET - plus global caches.',
       },
       {
         icon: Eye,

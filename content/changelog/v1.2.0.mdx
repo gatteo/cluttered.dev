@@ -1,0 +1,46 @@
+---
+version: "1.2.0"
+date: 2026-02-25
+title: "Global Caches & Monorepo Support"
+---
+
+Cluttered 1.2.0 introduces global cache scanning, a redesigned scan experience, and monorepo support.
+
+## New: Global Cache Scanning & Cleaning
+
+- **22+ cache types detected**: npm, pnpm, Yarn, Bun, Gradle, pip, Homebrew, CocoaPods, Docker, Playwright, Electron, node-gyp, Xcode DerivedData, iOS DeviceSupport, iOS Simulator runtimes, Android SDK (AVDs, NDK, system images, build-tools), and more
+- **Integrated into ecosystem grid**: Global Caches card appears alongside ecosystem cards, sorted by size
+- **Dedicated detail page**: Caches grouped by category (Package Managers, Dev Tools, Mobile Dev) with individual selection
+- **Caution tooltips**: Non-safe items show an info tooltip explaining what happens if deleted
+- **Select and clean from action bar**: Same workflow as project cleaning
+
+## Redesigned Scan Progress
+
+- **Radar sweep animation**: Satisfying sonar-style centerpiece while scanning
+- **Live counters**: Watch projects found and recoverable space update in real-time
+- **Ecosystem pills**: Discovered ecosystems pop in as they're found
+- **Shimmer progress bar**: Smooth, seamless gradient animation
+- **Path display**: Currently scanned path with mid-truncation
+
+## Monorepo Support
+
+- Scanner now discovers nested projects inside monorepos and workspaces
+- Properly detects sub-projects within pnpm workspaces, Turborepo, Nx, and similar setups
+
+## Ecosystem Detail Improvements
+
+- **Sort options**: Sort projects by size, name, or last modified date
+- **Status filters**: Filter by project status (active, recent, stale, dormant)
+
+## Security & Reliability
+
+- **Fixed command injection**: Global cache cleaning now resolves commands server-side from trusted database instead of accepting them from the renderer
+- **Concurrency guard**: Prevents duplicate cleaning operations
+- **Safer database migrations**: Explicit column existence checks instead of silent error swallowing
+
+## UI Polish
+
+- Reduced card border radius for a tighter look
+- Fixed tooltip arrow rendering
+- Fixed ActionBar z-index overlap with content
+- Bottom padding so global caches content is accessible above the action bar

@@ -8,7 +8,7 @@ import { HardDrive, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Supported Ecosystems',
-  description: 'Cluttered supports 12+ development ecosystems. See which build artifacts and caches we can clean for each.',
+  description: 'Cluttered supports 13+ development ecosystems. See which build artifacts and caches we can clean for each.',
 }
 
 // Map ecosystem slugs to icon paths
@@ -39,7 +39,7 @@ export default function EcosystemsPage() {
         <FadeIn>
           <div className="text-center mb-12">
             <Badge variant="secondary" className="mb-4">
-              12+ Ecosystems
+              13+ Ecosystems
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">Supported Ecosystems</h1>
             <p className="text-xl text-text-secondary max-w-2xl mx-auto">

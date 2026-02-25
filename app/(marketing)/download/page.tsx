@@ -19,7 +19,7 @@ export default function DownloadPage() {
           <div className="text-center mb-12">
             <FadeIn>
               <Badge variant="success" className="mb-4">
-                Latest: v1.1.0
+                Latest: v1.2.0
               </Badge>
               <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">Download Cluttered</h1>
               <p className="text-xl text-text-secondary">Reclaim your disk space in minutes. Free to download.</p>
